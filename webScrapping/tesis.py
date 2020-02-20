@@ -52,11 +52,11 @@ myScrapper = LexppScrapper(headless = False)
 #Navegamos a la página de tesis
 myScrapper.goTo("https://sjf.scjn.gob.mx/sjfsist/paginas/tesis.aspx")
 
-#Ir a los resultados del Pleno, Décima Época
+#Ir a los resultados del Pleno, Novena Época
 #La página utiliza una función para calcular a qué página de resultados redireccionar
-#La función toma como argumentos el id de época y el id de órgano (Pleno, sala)
-#0, 0 = Décima época, pleno
-myScrapper.webdriver.execute_script("CalcularEpocaLecturaSecuencial(0, 0);")
+#La función toma como argumentos el id de la instancia y el id de la época (Instancia, Época)
+#0, 1 = Instancia Pleno, Novena época
+myScrapper.webdriver.execute_script("CalcularEpocaLecturaSecuencial(0, 1);")
 
 #Esperamos
 myScrapper.waitUntil(".sec-resultados", "css selector")
