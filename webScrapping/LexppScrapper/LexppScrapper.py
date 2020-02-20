@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as WaitConditions
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException, ElementNotVisibleException
 import logging
 
@@ -133,3 +135,31 @@ class LexppScrapper:
                 return None
         else:
             return targetElem
+
+    #Esperar elemento
+    def waitUntil(self, element, findBy, timeout = 20, condition = "element_to_be_clickable", ):
+        #Verificamos argumentos
+        if not isinstance(timeout, int):
+            raise TypeError("'timeout' must be an integer object")
+        if not isinstance(element, str):
+            raise TypeError("'url' must be a string object")
+        if findBy not in ["name", "id", "xpath", "css selector", "class name"]:
+            raise ValueError("'findBy' must be name, id or xpath")
+        if not isinstance(condition, str):
+            raise TypeError("'condition' must be a string object")
+        #Mensaje
+        logging.info("User requested to wait for {0}({1},{2})".format(condition, findBy, element))
+        #Definimos tipo de espera
+        try:
+            untilCondition = getattr(WaitConditions, condition)((findBy, element))
+        except AttributeError as e:
+            raise ValueError("Exception while waiting for element: unknown wait condition: {0}".format(e))
+        #Iniciamos rutina de espera
+        try:
+            targetElem = WebDriverWait(self.webdriver, timeout).until(
+                untilCondition
+            )
+        except TimeoutError as e:
+            raise ValueError("Exception while waiting for element: timeout: {0}".format(e))
+        else:
+            logging.info("Wait condition fullfilled: {0}".format(targetElem.rect))
