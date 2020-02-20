@@ -37,6 +37,15 @@ else:
     logger.info("The database does not exist. A new one will be created...")
     myMongoDB = MongoClient["tesisSCJN"]
 
+#Acceder a colección de tesis
+logger.info("Connecting to tesis collection...")
+collectionList = myMongoDB.list_collection_names()
+if 'tesis' in collectionList:
+    tesisCollection = myMongoDB["tesis"]
+else:
+    logger.info("The collection does not exist. A new one will be created...")
+    tesisCollection = myMongoDB["tesis"]
+
 #Nueva instancia de LexppScrapper
 myScrapper = LexppScrapper(headless = False)
 
@@ -102,6 +111,10 @@ while current < total:
     tesisDataRespose = requests.post("https://sjf.scjn.gob.mx/sjfsist/Servicios/wsTesis.asmx/ObtenerDetalle", json = reqParameters)
     tesisDataJson = tesisDataRespose.json()
     tesisDataJson = tesisDataJson.get("d")
+    tesisDataJson = tesisDataJson.get("Tesis")
+
+    #Guardamos la tesis
+    tesisCollection.insert_one(tesisDataJson)
 
     #Damos clic para avanzar a la siguiente página
     myScrapper.clickOn("imgSiguiente", "id", continueOnExceptions = False)
@@ -109,6 +122,8 @@ while current < total:
     #Esperamos a que el texto de la tesis se carge
     myScrapper.sleep(2)
 
+#Cerramos la conexión de Mongo
+MongoClient.close()
 
 #Matamos el webdriver
 myScrapper.killWebDriver()
