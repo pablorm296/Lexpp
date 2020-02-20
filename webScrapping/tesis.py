@@ -1,6 +1,7 @@
 from LexppScrapper.LexppScrapper import LexppScrapper
 import logging
 import datetime
+import sys
 
 #Definimos bitácora
 logger = logging.getLogger(__name__)
@@ -12,7 +13,7 @@ logFormatter = logging.Formatter("%(levelname)-8s|%(asctime)s|%(module)s: %(mess
 todayDate = datetime.date.today().strftime("%Y-%m-%d")
 logFileHandler = logging.FileHandler("./logs/tesis_{0}.log".format(todayDate))
 logFileHandler.setFormatter(logFormatter)
-logConsoleHandler = logging.StreamHandler()
+logConsoleHandler = logging.StreamHandler(sys.stdout)
 logConsoleHandler.setFormatter(logFormatter)
 
 #Nueva instancia de LexppScrapper
