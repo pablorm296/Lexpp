@@ -2,6 +2,7 @@ from LexppScrapper.LexppScrapper import LexppScrapper
 import logging
 import datetime
 import requests
+import pymongo
 import re
 import sys
 
@@ -22,6 +23,19 @@ logConsoleHandler.setLevel(logging.INFO)
 #Agregamos handlers
 logger.addHandler(logConsoleHandler)
 logger.addHandler(logFileHandler)
+
+#Abrimos conexión con base de datos
+logger.info("Creating MongoDB client...")
+MongoClient = pymongo.MongoClient('mongodb://localhost:27017')
+
+#Si la base existe, cargarla, si no, crearla
+logger.info("Connecting to MongoDB database...")
+dbList = MongoClient.list_database_names()
+if 'tesisSCJN' in dbList:
+    myMongoDB = MongoClient["tesisSCJN"]
+else:
+    logger.info("The database does not exist. A new one will be created...")
+    myMongoDB = MongoClient["tesisSCJN"]
 
 #Nueva instancia de LexppScrapper
 myScrapper = LexppScrapper(headless = False)
@@ -57,6 +71,8 @@ tesisCounterText = tesisCounterElement.text
 tesisCounterMatch = re.findall(r"(\d*)\sde\s(\d*)", tesisCounterText)
 current = int(tesisCounterMatch[0][0])
 total = int(tesisCounterMatch[0][1])
+logger.info("Total tesis number: {0}".format(total))
+logger.info("Current tesis number: {0}".format(current))
 
 while current < total:
     
@@ -68,6 +84,7 @@ while current < total:
         tesisCounterMatch = re.findall(r"(\d*)\sde\s(\d*)", tesisCounterText)
         current = tesisCounterMatch[0][0]
         total = tesisCounterMatch[0][1]
+        logger.info("Current tesis number: {0}".format(current))
 
     #Obtenemos datos necesarios para hacer la request
     reqParameters = dict()
@@ -85,7 +102,6 @@ while current < total:
     tesisDataRespose = requests.post("https://sjf.scjn.gob.mx/sjfsist/Servicios/wsTesis.asmx/ObtenerDetalle", json = reqParameters)
     tesisDataJson = tesisDataRespose.json()
     tesisDataJson = tesisDataJson.get("d")
-    print(tesisDataJson)
 
     #Damos clic para avanzar a la siguiente página
     myScrapper.clickOn("imgSiguiente", "id", continueOnExceptions = False)
