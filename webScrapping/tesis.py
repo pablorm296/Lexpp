@@ -15,6 +15,9 @@ logFileHandler = logging.FileHandler("./logs/tesis_{0}.log".format(todayDate))
 logFileHandler.setFormatter(logFormatter)
 logConsoleHandler = logging.StreamHandler(sys.stdout)
 logConsoleHandler.setFormatter(logFormatter)
+#Agregamos handlers
+logger.addHandler(logConsoleHandler)
+logger.addHandler(logFileHandler)
 
 #Nueva instancia de LexppScrapper
 myScrapper = LexppScrapper(headless = False)
