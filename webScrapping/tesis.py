@@ -116,8 +116,10 @@ while current < total:
     #Guardamos la tesis
     tesisCollection.insert_one(tesisDataJson)
 
-    #Damos clic para avanzar a la siguiente página
-    myScrapper.clickOn("imgSiguiente", "id", continueOnExceptions = False)
+    #Verificamos que no sea la última página
+    if current < total:
+        #Damos clic para avanzar a la siguiente página
+        myScrapper.clickOn("imgSiguiente", "id", continueOnExceptions = False)
 
     #Esperamos a que el texto de la tesis se carge
     myScrapper.sleep(1)
