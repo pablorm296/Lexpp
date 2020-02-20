@@ -120,7 +120,7 @@ while current < total:
     myScrapper.clickOn("imgSiguiente", "id", continueOnExceptions = False)
 
     #Esperamos a que el texto de la tesis se carge
-    myScrapper.sleep(2)
+    myScrapper.sleep(1)
 
 #Cerramos la conexión de Mongo
 MongoClient.close()
