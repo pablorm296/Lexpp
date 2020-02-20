@@ -3,6 +3,7 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as WaitConditions
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException, ElementNotVisibleException
+import time
 import logging
 
 #Definimos bitácora
@@ -170,4 +171,7 @@ class LexppScrapper:
         if not isinstance(seconds, int):
             raise TypeError("'seconds' must be an integer object")
         #Esperamos
-        self.webdriver.implicitly_wait(seconds)
+        logging.info("User requested to wait for {0} seconds".format(seconds))
+        time.sleep(5)
+        logging.info("Wait condition fullfilled")
+        
