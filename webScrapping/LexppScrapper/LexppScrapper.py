@@ -15,7 +15,7 @@ class LexppScrapper:
         #Inicializamos opciones
         self.webdriverOptions = FirefoxOptions()
         #Declaramos la opción headless
-        self.webdriverOptions.headless = True
+        self.webdriverOptions.headless = headless
         #Iniciamos nueva instancia del webdriver
         self.webdriver = webdriver.Firefox(options = self.webdriverOptions)
         #Vamos a la url especificada por el usuario 
