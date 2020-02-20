@@ -21,3 +21,6 @@ logger.addHandler(logFileHandler)
 
 #Nueva instancia de LexppScrapper
 myScrapper = LexppScrapper(headless = False)
+
+#Matamos el webdriver
+myScrapper.killWebDriver()
