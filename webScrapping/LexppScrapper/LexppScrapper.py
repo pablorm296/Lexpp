@@ -163,3 +163,11 @@ class LexppScrapper:
             raise ValueError("Exception while waiting for element: timeout: {0}".format(e))
         else:
             logging.info("Wait condition fullfilled: {0}".format(targetElem.rect))
+    
+    #Esperar x segundos
+    def sleep(self, seconds = 5):
+        #Verificamos argumentos
+        if not isinstance(seconds, int):
+            raise TypeError("'seconds' must be an integer object")
+        #Esperamos
+        self.webdriver.implicitly_wait(seconds)
