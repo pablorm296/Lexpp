@@ -94,8 +94,8 @@ while current < total:
         tesisCounterElement = myScrapper.getElement("lblNavegacion", "id", continueOnExceptions = False)
         tesisCounterText = tesisCounterElement.text
         tesisCounterMatch = re.findall(r"(\d*)\sde\s(\d*)", tesisCounterText)
-        current = tesisCounterMatch[0][0]
-        total = tesisCounterMatch[0][1]
+        current = int(tesisCounterMatch[0][0])
+        total = int(tesisCounterMatch[0][1])
         logger.info("Current tesis number: {0}".format(current))
 
     #Obtenemos datos necesarios para hacer la request
@@ -105,7 +105,7 @@ while current < total:
     reqParameters.update(IdActual = myScrapper.webdriver.execute_script("return $(ObtenerControlesServidor().idActual).val();"))
     reqParameters.update(IdELementos = "")
     reqParameters.update(NumeroElementos = "20")
-    reqParameters.update(Pagina = myScrapper.webdriver.execute_script("$(ObtenerControlesServidor().Pagina.val()"))
+    reqParameters.update(Pagina = myScrapper.webdriver.execute_script("return $(ObtenerControlesServidor().Pagina).val()"))
     reqParameters.update(tesisDesmarcadas = "")
     reqParameters.update(Desmarcar = 0)
     logger.info("Parámetros de solicitud: {0}".format(reqParameters))
