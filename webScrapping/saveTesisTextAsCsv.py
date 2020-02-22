@@ -35,7 +35,7 @@ tesisList = list(tesisQuery)
 tesisDataFrame = pandas.DataFrame(tesisList)
 
 #Detectamos ids de documentos duplicados
-tesisDataFrame = tesisDataFrame[tesisDataFrame.duplicated(["Ius", "IdEpoca"], keep = "first")]
+tesisDataFrame = tesisDataFrame.drop_duplicates(["Ius", "IdEpoca"], keep = "first")
 
 #Eliminar información HTML
 tesisDataFrame["Texto"] = tesisDataFrame["Texto"].apply(lambda x: strip_tags(x))
