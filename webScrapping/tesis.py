@@ -84,6 +84,8 @@ logger.info("Total tesis number: {0}".format(total))
 logger.info("Current tesis number: {0}".format(current))
 
 while current < total:
+
+    myScrapper.goTo("https://sjf.scjn.gob.mx/sjfsist/paginas/DetalleGeneralV2.aspx?Epoca=100800000000000&Apendice=10000000000&Expresion=&Dominio=Rubro,Texto&TA_TJ=2&Orden=1&Clase=DetalleTesisBL&NumTE=3556&Epp=20&Desde=-100&Hasta=-100&Index=161&InstanciasSeleccionadas=&ID=200037&Hit=3236&IDs=200055,200054,200053,200051,200050,200049,200048,200047,200046,200045,200044,200043,200040,200039,200038,200037,200036,200035,200034,200033&tipoTesis=&Semanario=0&tabla=&Referencia=&Tema=")
     
     #Si es la primera página, nos saltamos obtener el número de página
     if current > 1:
