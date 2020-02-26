@@ -1,6 +1,6 @@
 from LexppScrapper.LexppScrapper import LexppScrapper
-from config import LexppConfig
-import getExpedientesMethods as getExpedientes
+from initConfig.config import LexppConfig
+import getExpedientesMethods.getExpedientesMethods as getExpedientes
 import argparse
 import logging
 import datetime
