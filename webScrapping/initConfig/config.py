@@ -37,7 +37,7 @@ class LexppConfig:
         self.myDBs = dict()
         self.myCollections = dict()
 
-        # Abrimos conexión con base de datos
+        # Abrimos conexión con cliente de Mongo
         self.logger.info("Creating MongoDB client...")
         self.myMongoClient = pymongo.MongoClient(targetClient)
 
@@ -50,14 +50,23 @@ class LexppConfig:
             self.logger.info("The database does not exist. A new one will be created...")
             self.myDBs[targetDB] = self.myMongoClient[targetDB]
 
+        # Registramos base de datos como última base
+        self.lastMongoDB = targetDB
+
+        # Creamos una string para registrar la colección
+        targetCollectionstr = "{0}/{1}".format(targetDB, targetCollection)
+
         # Acceder a colección de tesis
         self.logger.info("Connecting to collection...")
         collectionList = self.myDBs[targetDB].list_collection_names()
         if targetCollection in collectionList:
-            self.myCollections[targetCollection] = self.myDBs[targetDB][targetCollection]
+            self.myCollections[targetCollectionstr] = self.myDBs[targetDB][targetCollection]
         else:
             self.logger.info("The collection does not exist. A new one will be created...")
-            self.myCollections[targetCollection] = self.myDBs[targetDB][targetCollection]
+            self.myCollections[targetCollectionstr] = self.myDBs[targetDB][targetCollection]
+
+        # Registramos colección como última
+        self.lastMongoCollection = targetCollectionstr
     
     # Función para cerrar conexión
     def closeMongoClient(self):
@@ -68,6 +77,65 @@ class LexppConfig:
         delattr(self, "myMongoClient")
         delattr(self, "myDBs")
         delattr(self, "myCollections")
+
+    # Función para abrir nueva conexión a colección
+    def openNewCollection(self, targetCollection, targetDB = "__last", overWrite = False):
+        # Si el usuario quiere usar la última base de datos
+        if targetDB == "__last":
+            targetDB = self.lastMongoDB
+
+        # Creamos una string para registrar la colección
+        targetCollectionstr = "{0}/{1}".format(targetDB, targetCollection)
+
+        # Si la base de datos especificada ya esta abierta
+        if targetCollectionstr in self.myCollections and not overWrite:
+            self.logger.warning("The collection is already open!")
+            raise TypeError("The collection is already open!")
+
+        # Si la base no está registrada
+        if targetDB not in self.myDBs:
+            # Si la base existe, cargarla, si no, crearla
+            self.logger.info("Connecting to database...")
+            dbList = self.myMongoClient.list_database_names()
+            if targetDB in dbList:
+                self.myDBs[targetDB] = self.myMongoClient[targetDB]
+            else:
+                self.logger.info("The database does not exist. A new one will be created...")
+                self.myDBs[targetDB] = self.myMongoClient[targetDB]
+
+            # Registramos base de datos como última base
+            self.lastMongoDB = targetDB
+
+        # Acceder a colección especificada
+        self.logger.info("Connecting to collection...")
+        collectionList = self.myDBs[targetDB].list_collection_names()
+        if targetCollection in collectionList:
+            self.myCollections[targetCollection] = self.myDBs[targetDB][targetCollection]
+        else:
+            self.logger.info("The collection does not exist. A new one will be created...")
+            self.myCollections[targetCollection] = self.myDBs[targetDB][targetCollection]
+
+        # Registramos colección como última
+        self.lastMongoCollection = targetCollectionstr
+
+    # Función para abrir nueva conexicón a base de datos
+    def openNewDB(self, targetDB, overWrite = False):
+        # Si la base de datos especificada ya esta abierta
+        if targetDB in self.myDBs and not overWrite:
+            self.logger.warning("The database is already open!")
+            raise TypeError("The database is already open!")
+
+        # Si la base existe, cargarla, si no, crearla
+        self.logger.info("Connecting to database...")
+        dbList = self.myMongoClient.list_database_names()
+        if targetDB in dbList:
+            self.myDBs[targetDB] = self.myMongoClient[targetDB]
+        else:
+            self.logger.info("The database does not exist. A new one will be created...")
+            self.myDBs[targetDB] = self.myMongoClient[targetDB]
+
+        # Registramos base de datos como última base
+        self.lastMongoDB = targetDB
 
     # Función para mandar mensaje a la bitácora
     def log(self, level, msg):
