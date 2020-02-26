@@ -1,4 +1,5 @@
 from LexppScrapper.LexppScrapper import LexppScrapper
+from config import LexppConfig
 import logging
 import datetime
 import requests
@@ -6,45 +7,10 @@ import pymongo
 import re
 import sys
 
-#Definimos bitácora
-logger = logging.getLogger()
-#Definimos nivel de registro
-logger.setLevel(logging.INFO)
-#Definimos formato
-logFormatter = logging.Formatter("%(levelname)-8s|%(asctime)s|%(module)-10s|%(message)s", "%Y-%m-%d %H:%M:%S")
-#Definimos handlers para consola y archivo
 todayDate = datetime.date.today().strftime("%Y-%m-%d")
-logFileHandler = logging.FileHandler("./logs/tesis_{0}.log".format(todayDate))
-logFileHandler.setFormatter(logFormatter)
-logFileHandler.setLevel(logging.INFO)
-logConsoleHandler = logging.StreamHandler(sys.stdout)
-logConsoleHandler.setFormatter(logFormatter)
-logConsoleHandler.setLevel(logging.INFO)
-#Agregamos handlers
-logger.addHandler(logConsoleHandler)
-logger.addHandler(logFileHandler)
 
-#Abrimos conexión con base de datos
-logger.info("Creating MongoDB client...")
-MongoClient = pymongo.MongoClient('mongodb://localhost:27017')
-
-#Si la base existe, cargarla, si no, crearla
-logger.info("Connecting to MongoDB database...")
-dbList = MongoClient.list_database_names()
-if 'tesisSCJN' in dbList:
-    myMongoDB = MongoClient["tesisSCJN"]
-else:
-    logger.info("The database does not exist. A new one will be created...")
-    myMongoDB = MongoClient["tesisSCJN"]
-
-#Acceder a colección de tesis
-logger.info("Connecting to tesis collection...")
-collectionList = myMongoDB.list_collection_names()
-if 'tesis' in collectionList:
-    tesisCollection = myMongoDB["tesis"]
-else:
-    logger.info("The collection does not exist. A new one will be created...")
-    tesisCollection = myMongoDB["tesis"]
+tesisConfig = LexppConfig(logFile = "./logs/tesis_{0}.log".format(todayDate), targetClient = 'mongodb://localhost:27017',
+targetDB = "tesisSCJN", targetCollection = "tesis")
 
 #Nueva instancia de LexppScrapper
 myScrapper = LexppScrapper(headless = False)
@@ -83,8 +49,8 @@ tesisCounterText = tesisCounterElement.text
 tesisCounterMatch = re.findall(r"(\d*)\sde\s(\d*)", tesisCounterText)
 current = int(tesisCounterMatch[0][0])
 total = int(tesisCounterMatch[0][1])
-logger.info("Total tesis number: {0}".format(total))
-logger.info("Current tesis number: {0}".format(current))
+tesisConfig.log(logging.INFO, "Total tesis number: {0}".format(total))
+tesisConfig.log(logging.INFO, "Current tesis number: {0}".format(current))
 
 while current < total:
 
@@ -96,7 +62,7 @@ while current < total:
         tesisCounterMatch = re.findall(r"(\d*)\sde\s(\d*)", tesisCounterText)
         current = int(tesisCounterMatch[0][0])
         total = int(tesisCounterMatch[0][1])
-        logger.info("Current tesis number: {0}".format(current))
+        tesisConfig.log(logging.INFO, "Current tesis number: {0}".format(current))
 
     #Obtenemos datos necesarios para hacer la request
     reqParameters = dict()
@@ -108,7 +74,7 @@ while current < total:
     reqParameters.update(Pagina = myScrapper.webdriver.execute_script("return $(ObtenerControlesServidor().Pagina).val()"))
     reqParameters.update(tesisDesmarcadas = "")
     reqParameters.update(Desmarcar = 0)
-    logger.info("Parámetros de solicitud: {0}".format(reqParameters))
+    tesisConfig.log(logging.INFO, "Parámetros de solicitud: {0}".format(reqParameters))
 
     #Mandamos la request
     tesisDataRespose = requests.post("https://sjf.scjn.gob.mx/sjfsist/Servicios/wsTesis.asmx/ObtenerDetalle", json = reqParameters)
@@ -117,7 +83,7 @@ while current < total:
     tesisDataJson = tesisDataJson.get("Tesis")
 
     #Guardamos la tesis
-    tesisCollection.insert_one(tesisDataJson)
+    tesisConfig.myCollections["tesis"].insert_one(tesisDataJson)
 
     #Verificamos que no sea la última página
     if current < total:
@@ -128,7 +94,7 @@ while current < total:
     myScrapper.sleep(1)
 
 #Cerramos la conexión de Mongo
-MongoClient.close()
+tesisConfig.closeMongoClient()
 
 #Matamos el webdriver
 myScrapper.killWebDriver()
