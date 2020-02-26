@@ -1,98 +1,386 @@
-{
-    "19": "Acción De Inconstitucionalidad",
-    "50": "Aclaración De Jurisprudencia",
-    "25": "Aclaración De Sentencia",
-    "1": "Amparo Directo",
-    "10": "Amparo Directo En Revisión",
-    "2": "Amparo En Revisión",
-    "49": "Artículo 100 Párrafo Octavo De La Constitución Política De Los Estados Unidos Mexicanos",
-    "27": "Artículo 11 De Ley Orgánica PJF Fracción IX",
-    "3": "Conflicto Competencial",
-    "86": "Conflicto De Trabajo",
-    "72": "Consulta A Trámite Previsto En El Párrafo Segundo De La Fracción II Del Art. 14 De La Ley Orgánica Del Poder Judicial De La Federación",
-    "87": "Consulta Formulada Por Titulares De Órganos Jurisdiccionales Del Poder Judicial De La Federación",
-    "4": "Contradicción De Tesis",
-    "9": "Controversia Constitucional",
-    "5": "Controversia Por Extradición",
-    "79": "Controversia Prevista En El Artículo 11, Fracción Xx, De La Ley Orgánica Del Poder Judicial De La Federación",
-    "71": "Declaratoria General De Inconstitucionalidad",
-    "28": "Denuncia De Incumplimiento Por Aplicación De Normas O Actos Declarados Inválidos En La Controversia Constitucional",
-    "12": "Denuncia De Repetición Del Acto Reclamado",
-    "21": "Dictamen Final De Solicitud De Ejercicio De La Facultad De Investigación (Art. 97)",
-    "47": "Diligencia De Jurisdicción Voluntaria",
-    "45": "Excepción De Conexidad",
-    "48": "Excepción De Falta De Personalidad",
-    "63": "Excepción De Improcedencia De La Vía",
-    "43": "Excepción De Incompetencia",
-    "99": "Excepción De Litispendencia",
-    "88": "Expediente Sobre Recepción De Sentencias De Tribunales Internacionales",
-    "13": "Expedientes En Ejecución",
-    "14": "Impedimento",
-    "89": "Incidencia Posterior Al Dictado De La Sentencia En Un Juicio Del Que Se Conoce En Ejercicio De Jurisdicción Ordinaria",
-    "90": "Incidencia Surgida Dentro De Un Juicio Del Que Se Conoce En Ejercicio De Jurisdicción Ordinaria",
-    "103": "Incidente De Aclaración De Sentencia En La Controversia Constitucional",
-    "46": "Incidente De Acumulación",
-    "84": "Incidente De Cumplimiento Sustituto",
-    "106": "Incidente De Falsedad",
-    "73": "Incidente De Falsedad De Documentos De La Controversia Constitucional",
-    "104": "Incidente De Falsedad De Documentos Derivado Del Recurso De Reclamación De La Controversia Constitucional",
-    "100": "Incidente De Incumplimiento De Sentencia Derivado De Controversia Constitucional",
-    "15": "Incidente De Inejecución De Sentencia",
-    "65": "Incidente De Inejecución Derivado De Denuncia De Repetición Del Acto Reclamado",
-    "91": "Incidente De Inejecución Derivado De Denuncia Fundada De Repetición De La Aplicación En Perjuicio Del Denunciante De Una Norma General Declarada Inconstitucional Con Efectos Generales",
-    "85": "Incidente De Inejecución Derivado De Incidente De Cumplimiento Sustituto",
-    "92": "Incidente De Inejecución Derivado Del Incumplimiento De Una Declaratoria General De Inconstitucionalidad",
-    "54": "Incidente De Liquidación De Intereses",
-    "58": "Incidente De Nulidad De Actuaciones De J. Ord. F.",
-    "74": "Incidente De Nulidad De Notificaciones De La Controversia Constitucional",
-    "64": "Incidente De Pago De Honorarios",
-    "60": "Incidente De Reposición De Autos",
-    "75": "Incidente De Reposición De Autos De La Controversia Constitucional",
-    "105": "Incidente De Suspensión En Acción De Inconstitucionalidad",
-    "55": "Incidente De Suspensión En Controversia Constitucional",
-    "80": "Incidente De Suspensión En Cumplimiento De Convenios De Coordinación Fiscal",
-    "51": "Incidentes Derivados De Juicios Ord. Fed.",
-    "16": "Inconformidad",
-    "52": "Inconformidad En Cumplimiento De Revisiones Administrativas",
-    "98": "Investigación Derivada De Responsabilidades Administrativas",
-    "22": "Juicio De Inconformidad",
-    "29": "Juicio Ordinario Federal",
-    "26": "Juicio Sobre Cumplimiento De Los Convenios De Coordinación Fiscal",
-    "39": "Modificación De Jurisprudencia",
-    "40": "Procedimiento De Responsabilidad Administrativa",
-    "7": "Queja",
-    "18": "Queja Administrativa",
-    "31": "Queja En Controversias Constitucionales Y Acciones De Inconstitucionalidad",
-    "6": "Reconocimiento De Inocencia",
-    "68": "Recurso De Apelación",
-    "53": "Recurso De Denegada Apelación",
-    "96": "Recurso De Inconformidad Derivado De Procedimiento De Responsabilidad Administrativa",
-    "83": "Recurso De Inconformidad Previsto En La Fracción IV Del Artículo 201 De La Ley De Amparo",
-    "82": "Recurso De Inconformidad Previsto En Las Fracciones I A III Del Artículo 201 De La Ley De Amparo",
-    "17": "Recurso De Reclamación",
-    "107": "Recurso De Reclamación Derivado De Juicio Contencioso Administrativo",
-    "62": "Recurso De Reclamación Derivado Del Juicio Sobre El Convenio De Coordinación Fiscal",
-    "37": "Recurso De Reclamación En Acciones De Inconst.",
-    "30": "Recurso De Reclamación En La Controversia Const.",
-    "102": "Recurso De Revisión En Materia De Seguridad Nacional Previsto En La Ley General De Transparencia Y Acceso A La Información Pública",
-    "57": "Recurso De Revocación",
-    "41": "Recurso De Súplica (Solo Asunto De 1930)",
-    "66": "Recurso Innominado En El Procedimiento De Responsabilidad Administrativa",
-    "20": "Revisión Administrativa",
-    "67": "Revisión Administrativa (Ley Federal De Procedimiento Contencioso Administrativo)",
-    "93": "Revisión De Constitucionalidad De La Materia De Una Consulta Popular Convocada Por El Congreso De La Unión",
-    "70": "Revisión En Incidente De Suspensión",
-    "94": "Revisión Oficiosa De Decretos De Restricción O Suspensión De Derechos, Prevista En El Artículo 29 Párrafo Último, De La Constitución Política De Los Estados Unidos Mexicanos",
-    "97": "Solicitud De Atención Prioritaria",
-    "24": "Solicitud De Ejercicio De La Facultad De Atracción",
-    "69": "Solicitud De Ejercicio De La Facultad De Atracción Prevista En La Fracción III Del Artículo 105 De La Constitución Política De Los Estados Unidos Mexicanos",
-    "23": "Solicitud De Ejercicio De La Facultad Prevista En El Artículo 97, Párrafo Segundo, De La Constitución Política De Los Estados Unidos Mexicanos",
-    "42": "Solicitud De Reasunción De Competencia",
-    "95": "Solicitud De Resolución Prioritaria De Asuntos",
-    "56": "Solicitud De Revocación De La Suspensión En La Controversia Constitucional",
-    "61": "Solicitud De Sustitución De Jurisprudencia",
-    "34": "Solicitud Ley Federal De Transparencia",
-    "8": "Varios",
-    "101": "Varios En La Acción De Inconstitucionalidad",
-    "32": "Varios En La Controversia Constitucional"
-}
+[
+    {
+        "id": "19",
+        "name": "Acción De Inconstitucionalidad"
+    },
+    {
+        "id": "50",
+        "name": "Aclaración De Jurisprudencia"
+    },
+    {
+        "id": "25",
+        "name": "Aclaración De Sentencia"
+    },
+    {
+        "id": "1",
+        "name": "Amparo Directo"
+    },
+    {
+        "id": "10",
+        "name": "Amparo Directo En Revisión"
+    },
+    {
+        "id": "2",
+        "name": "Amparo En Revisión"
+    },
+    {
+        "id": "49",
+        "name": "Artículo 100 Párrafo Octavo De La Constitución Política De Los Estados Unidos Mexicanos"
+    },
+    {
+        "id": "27",
+        "name": "Artículo 11 De Ley Orgánica PJF Fracción IX"
+    },
+    {
+        "id": "3",
+        "name": "Conflicto Competencial"
+    },
+    {
+        "id": "86",
+        "name": "Conflicto De Trabajo"
+    },
+    {
+        "id": "72",
+        "name": "Consulta A Trámite Previsto En El Párrafo Segundo De La Fracción II Del Art. 14 De La Ley Orgánica Del Poder Judicial De La Federación"
+    },
+    {
+        "id": "87",
+        "name": "Consulta Formulada Por Titulares De Órganos Jurisdiccionales Del Poder Judicial De La Federación"
+    },
+    {
+        "id": "4",
+        "name": "Contradicción De Tesis"
+    },
+    {
+        "id": "9",
+        "name": "Controversia Constitucional"
+    },
+    {
+        "id": "5",
+        "name": "Controversia Por Extradición"
+    },
+    {
+        "id": "79",
+        "name": "Controversia Prevista En El Artículo 11, Fracción Xx, De La Ley Orgánica Del Poder Judicial De La Federación"
+    },
+    {
+        "id": "71",
+        "name": "Declaratoria General De Inconstitucionalidad"
+    },
+    {
+        "id": "28",
+        "name": "Denuncia De Incumplimiento Por Aplicación De Normas O Actos Declarados Inválidos En La Controversia Constitucional"
+    },
+    {
+        "id": "12",
+        "name": "Denuncia De Repetición Del Acto Reclamado"
+    },
+    {
+        "id": "21",
+        "name": "Dictamen Final De Solicitud De Ejercicio De La Facultad De Investigación (Art. 97)"
+    },
+    {
+        "id": "47",
+        "name": "Diligencia De Jurisdicción Voluntaria"
+    },
+    {
+        "id": "45",
+        "name": "Excepción De Conexidad"
+    },
+    {
+        "id": "48",
+        "name": "Excepción De Falta De Personalidad"
+    },
+    {
+        "id": "63",
+        "name": "Excepción De Improcedencia De La Vía"
+    },
+    {
+        "id": "43",
+        "name": "Excepción De Incompetencia"
+    },
+    {
+        "id": "99",
+        "name": "Excepción De Litispendencia"
+    },
+    {
+        "id": "88",
+        "name": "Expediente Sobre Recepción De Sentencias De Tribunales Internacionales"
+    },
+    {
+        "id": "13",
+        "name": "Expedientes En Ejecución"
+    },
+    {
+        "id": "14",
+        "name": "Impedimento"
+    },
+    {
+        "id": "89",
+        "name": "Incidencia Posterior Al Dictado De La Sentencia En Un Juicio Del Que Se Conoce En Ejercicio De Jurisdicción Ordinaria"
+    },
+    {
+        "id": "90",
+        "name": "Incidencia Surgida Dentro De Un Juicio Del Que Se Conoce En Ejercicio De Jurisdicción Ordinaria"
+    },
+    {
+        "id": "103",
+        "name": "Incidente De Aclaración De Sentencia En La Controversia Constitucional"
+    },
+    {
+        "id": "46",
+        "name": "Incidente De Acumulación"
+    },
+    {
+        "id": "84",
+        "name": "Incidente De Cumplimiento Sustituto"
+    },
+    {
+        "id": "106",
+        "name": "Incidente De Falsedad"
+    },
+    {
+        "id": "73",
+        "name": "Incidente De Falsedad De Documentos De La Controversia Constitucional"
+    },
+    {
+        "id": "104",
+        "name": "Incidente De Falsedad De Documentos Derivado Del Recurso De Reclamación De La Controversia Constitucional"
+    },
+    {
+        "id": "100",
+        "name": "Incidente De Incumplimiento De Sentencia Derivado De Controversia Constitucional"
+    },
+    {
+        "id": "15",
+        "name": "Incidente De Inejecución De Sentencia"
+    },
+    {
+        "id": "65",
+        "name": "Incidente De Inejecución Derivado De Denuncia De Repetición Del Acto Reclamado"
+    },
+    {
+        "id": "91",
+        "name": "Incidente De Inejecución Derivado De Denuncia Fundada De Repetición De La Aplicación En Perjuicio Del Denunciante De Una Norma General Declarada Inconstitucional Con Efectos Generales"
+    },
+    {
+        "id": "85",
+        "name": "Incidente De Inejecución Derivado De Incidente De Cumplimiento Sustituto"
+    },
+    {
+        "id": "92",
+        "name": "Incidente De Inejecución Derivado Del Incumplimiento De Una Declaratoria General De Inconstitucionalidad"
+    },
+    {
+        "id": "54",
+        "name": "Incidente De Liquidación De Intereses"
+    },
+    {
+        "id": "58",
+        "name": "Incidente De Nulidad De Actuaciones De J. Ord. F."
+    },
+    {
+        "id": "74",
+        "name": "Incidente De Nulidad De Notificaciones De La Controversia Constitucional"
+    },
+    {
+        "id": "64",
+        "name": "Incidente De Pago De Honorarios"
+    },
+    {
+        "id": "60",
+        "name": "Incidente De Reposición De Autos"
+    },
+    {
+        "id": "75",
+        "name": "Incidente De Reposición De Autos De La Controversia Constitucional"
+    },
+    {
+        "id": "105",
+        "name": "Incidente De Suspensión En Acción De Inconstitucionalidad"
+    },
+    {
+        "id": "55",
+        "name": "Incidente De Suspensión En Controversia Constitucional"
+    },
+    {
+        "id": "80",
+        "name": "Incidente De Suspensión En Cumplimiento De Convenios De Coordinación Fiscal"
+    },
+    {
+        "id": "51",
+        "name": "Incidentes Derivados De Juicios Ord. Fed."
+    },
+    {
+        "id": "16",
+        "name": "Inconformidad"
+    },
+    {
+        "id": "52",
+        "name": "Inconformidad En Cumplimiento De Revisiones Administrativas"
+    },
+    {
+        "id": "98",
+        "name": "Investigación Derivada De Responsabilidades Administrativas"
+    },
+    {
+        "id": "22",
+        "name": "Juicio De Inconformidad"
+    },
+    {
+        "id": "29",
+        "name": "Juicio Ordinario Federal"
+    },
+    {
+        "id": "26",
+        "name": "Juicio Sobre Cumplimiento De Los Convenios De Coordinación Fiscal"
+    },
+    {
+        "id": "39",
+        "name": "Modificación De Jurisprudencia"
+    },
+    {
+        "id": "40",
+        "name": "Procedimiento De Responsabilidad Administrativa"
+    },
+    {
+        "id": "7",
+        "name": "Queja"
+    },
+    {
+        "id": "18",
+        "name": "Queja Administrativa"
+    },
+    {
+        "id": "31",
+        "name": "Queja En Controversias Constitucionales Y Acciones De Inconstitucionalidad"
+    },
+    {
+        "id": "6",
+        "name": "Reconocimiento De Inocencia"
+    },
+    {
+        "id": "68",
+        "name": "Recurso De Apelación"
+    },
+    {
+        "id": "53",
+        "name": "Recurso De Denegada Apelación"
+    },
+    {
+        "id": "96",
+        "name": "Recurso De Inconformidad Derivado De Procedimiento De Responsabilidad Administrativa"
+    },
+    {
+        "id": "83",
+        "name": "Recurso De Inconformidad Previsto En La Fracción IV Del Artículo 201 De La Ley De Amparo"
+    },
+    {
+        "id": "82",
+        "name": "Recurso De Inconformidad Previsto En Las Fracciones I A III Del Artículo 201 De La Ley De Amparo"
+    },
+    {
+        "id": "17",
+        "name": "Recurso De Reclamación"
+    },
+    {
+        "id": "107",
+        "name": "Recurso De Reclamación Derivado De Juicio Contencioso Administrativo"
+    },
+    {
+        "id": "62",
+        "name": "Recurso De Reclamación Derivado Del Juicio Sobre El Convenio De Coordinación Fiscal"
+    },
+    {
+        "id": "37",
+        "name": "Recurso De Reclamación En Acciones De Inconst."
+    },
+    {
+        "id": "30",
+        "name": "Recurso De Reclamación En La Controversia Const."
+    },
+    {
+        "id": "102",
+        "name": "Recurso De Revisión En Materia De Seguridad Nacional Previsto En La Ley General De Transparencia Y Acceso A La Información Pública"
+    },
+    {
+        "id": "57",
+        "name": "Recurso De Revocación"
+    },
+    {
+        "id": "41",
+        "name": "Recurso De Súplica (Solo Asunto De 1930)"
+    },
+    {
+        "id": "66",
+        "name": "Recurso Innominado En El Procedimiento De Responsabilidad Administrativa"
+    },
+    {
+        "id": "20",
+        "name": "Revisión Administrativa"
+    },
+    {
+        "id": "67",
+        "name": "Revisión Administrativa (Ley Federal De Procedimiento Contencioso Administrativo)"
+    },
+    {
+        "id": "93",
+        "name": "Revisión De Constitucionalidad De La Materia De Una Consulta Popular Convocada Por El Congreso De La Unión"
+    },
+    {
+        "id": "70",
+        "name": "Revisión En Incidente De Suspensión"
+    },
+    {
+        "id": "94",
+        "name": "Revisión Oficiosa De Decretos De Restricción O Suspensión De Derechos, Prevista En El Artículo 29 Párrafo Último, De La Constitución Política De Los Estados Unidos Mexicanos"
+    },
+    {
+        "id": "97",
+        "name": "Solicitud De Atención Prioritaria"
+    },
+    {
+        "id": "24",
+        "name": "Solicitud De Ejercicio De La Facultad De Atracción"
+    },
+    {
+        "id": "69",
+        "name": "Solicitud De Ejercicio De La Facultad De Atracción Prevista En La Fracción III Del Artículo 105 De La Constitución Política De Los Estados Unidos Mexicanos"
+    },
+    {
+        "id": "23",
+        "name": "Solicitud De Ejercicio De La Facultad Prevista En El Artículo 97, Párrafo Segundo, De La Constitución Política De Los Estados Unidos Mexicanos"
+    },
+    {
+        "id": "42",
+        "name": "Solicitud De Reasunción De Competencia"
+    },
+    {
+        "id": "95",
+        "name": "Solicitud De Resolución Prioritaria De Asuntos"
+    },
+    {
+        "id": "56",
+        "name": "Solicitud De Revocación De La Suspensión En La Controversia Constitucional"
+    },
+    {
+        "id": "61",
+        "name": "Solicitud De Sustitución De Jurisprudencia"
+    },
+    {
+        "id": "34",
+        "name": "Solicitud Ley Federal De Transparencia"
+    },
+    {
+        "id": "8",
+        "name": "Varios"
+    },
+    {
+        "id": "101",
+        "name": "Varios En La Acción De Inconstitucionalidad"
+    },
+    {
+        "id": "32",
+        "name": "Varios En La Controversia Constitucional"
+    }
+]

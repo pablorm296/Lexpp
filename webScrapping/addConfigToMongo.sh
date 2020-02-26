@@ -7,7 +7,8 @@
 #===============================================================================
 
 # Diccionario de expedientes
-mongoimport --db test \
-            --collection test_1 \
+mongoimport --db LexppScrapperConfig \
+            --collection idExpedientes \
             --drop \
+            --jsonArray \
             --file webScrapping/data/config/expedientes.json
