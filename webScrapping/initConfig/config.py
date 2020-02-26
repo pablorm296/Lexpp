@@ -31,8 +31,14 @@ class LexppConfig:
         self.logger.addHandler(logConsoleHandler)
         self.logger.addHandler(logFileHandler)
 
+        # Log info
+        self.logger.info("Initializing logging config...")
+
     # Función para inicializar la conexión a la base de datos
     def initMongo(self, targetClient, targetDB, targetCollection):
+        # Log info
+        self.logger.info("Initializing MongoDB connection...")
+
         # Verificamos argumentos
         if targetDB is None and targetCollection is not None:
             raise ValueError("If targetCollection is specified, please also use targetDB")
@@ -77,6 +83,10 @@ class LexppConfig:
     
     # Función para cerrar conexión
     def closeMongoClient(self):
+        # Log info
+        self.logger.info("Closing mongodb connection...")
+
+        # Primero, faciar bases de datos/colecciones y después eliminar los atributos
         self.myMongoClient.close()
         self.myMongoClient = None
         self.myDBs = None
@@ -93,6 +103,9 @@ class LexppConfig:
 
         # Creamos una string para registrar la colección
         targetCollectionstr = "{0}/{1}".format(targetDB, targetCollection)
+
+        # Log info
+        self.logger.info("Opening new connection to collection {0}...".format(targetCollectionstr))
 
         # Si la base de datos especificada ya esta abierta
         if targetCollectionstr in self.myCollections and not overWrite:
@@ -127,6 +140,9 @@ class LexppConfig:
 
     # Función para abrir nueva conexicón a base de datos
     def openNewDB(self, targetDB, overWrite = False):
+        # Log info
+        self.logger.info("Opening new connection to db {0}...".format(targetDB))
+
         # Si la base de datos especificada ya esta abierta
         if targetDB in self.myDBs and not overWrite:
             self.logger.warning("The database is already open!")
