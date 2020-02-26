@@ -22,38 +22,38 @@ def main(arguments):
     # Fecha del día de hoy (para el archivo de log)
     todayDate = datetime.date.today().strftime("%Y-%m-%d")
     # Inicializamos configuración
-    myConfig = LexppConfig(logFile = "./logs/expedientes_{0}.log".format(todayDate), logLevel = log_level, targetClient = 'mongodb://localhost:27017', targetDB = "sentenciasSCJN", targetCollection = "sentencias")
+    myLexppConfig = LexppConfig(logFile = "./logs/expedientes_{0}.log".format(todayDate), logLevel = log_level, targetClient = 'mongodb://localhost:27017', targetDB = "sentenciasSCJN", targetCollection = "sentencias")
 
     # Dependiendo del tipo de modo, verificar que el usuario haya ingresado otros argumentos
-    myConfig.log_DEBUG("Verificando argumentos...")
+    myLexppConfig.log_DEBUG("Verificando argumentos...")
     if arguments.modo == "tipoAsunto":
         # El ususario no puso el argumento necesario
         if arguments.tipoAsunto is None:
             error_msg = "Falta especificar el tipo de asunto!"
-            myConfig.log_CRITICAL(error_msg)
+            myLexppConfig.log_CRITICAL(error_msg)
             raise TypeError(error_msg)
     elif arguments.modo == "orgRadicacion":
         # El ususario no puso el argumento necesario
         if arguments.orgRadicacion is None:
             error_msg = "Falta especificar el órgano de radicación!"
-            myConfig.log_CRITICAL(error_msg)
+            myLexppConfig.log_CRITICAL(error_msg)
             raise TypeError(error_msg)
     elif arguments.modo == "ministro":
         # El ususario no puso el argumento necesario
         if arguments.ministro is None:
             error_msg = "Falta especificar el ministro!"
-            myConfig.log_CRITICAL(error_msg)
+            myLexppConfig.log_CRITICAL(error_msg)
             raise TypeError(error_msg)
     elif arguments.modo == "especifico":
         # El ususario no puso el argumento necesario
         if arguments.expedienteInfo is None:
             error_msg = "Falta especificar ID de asunto o ID de expediente"
-            myConfig.log_CRITICAL(error_msg)
+            myLexppConfig.log_CRITICAL(error_msg)
             raise TypeError(error_msg)
 
     # Activar modo
     if arguments.modo == "tipoAsunto":
-        getExpedientes.getByAsuntoID(arguments.tipoAsunto, arguments.headless, arguments.goToPage)
+        getExpedientes.getByAsuntoID(arguments.tipoAsunto, arguments.headless, arguments.goToPage, myLexppConfig)
 
 if __name__ == "__main__":
     # Inicializar parser para los argumentos
