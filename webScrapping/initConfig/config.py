@@ -107,7 +107,7 @@ class LexppConfig:
         # Log info
         self.logger.info("Opening new connection to collection {0}...".format(targetCollectionstr))
 
-        # Si la base de datos especificada ya esta abierta
+        # Si la colección de datos especificada ya esta abierta
         if targetCollectionstr in self.myCollections and not overWrite:
             self.logger.warning("The collection is already open!")
             raise TypeError("The collection is already open!")
@@ -130,10 +130,10 @@ class LexppConfig:
         self.logger.info("Connecting to collection...")
         collectionList = self.myDBs[targetDB].list_collection_names()
         if targetCollection in collectionList:
-            self.myCollections[targetCollection] = self.myDBs[targetDB][targetCollection]
+            self.myCollections[targetCollectionstr] = self.myDBs[targetDB][targetCollection]
         else:
             self.logger.info("The collection does not exist. A new one will be created...")
-            self.myCollections[targetCollection] = self.myDBs[targetDB][targetCollection]
+            self.myCollections[targetCollectionstr] = self.myDBs[targetDB][targetCollection]
 
         # Registramos colección como última
         self.lastMongoCollection = targetCollectionstr
