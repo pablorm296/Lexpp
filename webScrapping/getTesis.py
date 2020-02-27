@@ -1,5 +1,5 @@
 from LexppScrapper.LexppScrapper import LexppScrapper
-from config import LexppConfig
+from initConfig.config import LexppConfig
 import logging
 import datetime
 import requests
