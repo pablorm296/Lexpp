@@ -87,7 +87,7 @@ def getByAsuntoID(asuntoID, headlessOption, pageOption, LexppConfig):
             LexppConfig.log_CRITICAL(error_msg)
             raise ValueError(error_msg)
         # Configuramos payload
-        JSpayload = JSpayload.format(pageOption)
+        JSpayload = JSpayload["payload"].format(pageOption)
 
         # Esperamos hasta que no haya un loader activo
         waitForLoader(myScrapper, LexppConfig)
