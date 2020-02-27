@@ -19,3 +19,10 @@ mongoimport --db LexppScrapperConfig \
             --drop \
             --jsonArray \
             --file webScrapping/data/config/urlBank.json
+
+# Diccionario de js
+mongoimport --db LexppScrapperConfig \
+            --collection jsBank \
+            --drop \
+            --jsonArray \
+            --file webScrapping/data/config/jsBank.json

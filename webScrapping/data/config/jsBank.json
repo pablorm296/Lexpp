@@ -1,0 +1,14 @@
+[
+    {
+        "name": "nextPage",
+        "payload": "__doPostBack('ctl00$MainContentPlaceHolder$pagerGridConsulta', 'PBN');"
+    },
+    {
+        "name": "prevPage",
+        "payload": "__doPostBack('ctl00$MainContentPlaceHolder$pagerGridConsulta', 'PBP')"
+    },
+    {
+        "name": "goToPage",
+        "payload": "__doPostBack('ctl00$MainContentPlaceHolder$pagerGridConsulta1', 'PN{0}')"
+    }
+]
