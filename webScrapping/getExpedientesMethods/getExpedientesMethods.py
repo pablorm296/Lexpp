@@ -81,7 +81,11 @@ def getByAsuntoID(asuntoID, headlessOption, pageOption, LexppConfig):
         # Log info
         LexppConfig.log_INFO("El usuario solicitó iniciar su búsqueda en la página {0}...".format(pageOption))
         # Obtenemos JS correspondiente
-        JSpayload = LexppConfig.myCollections["LexppScrapperConfig/urlBank"].find_one({"name": "goToPage"})
+        JSpayload = LexppConfig.myCollections["LexppScrapperConfig/jsBank"].find_one({"name": "goToPage"})
+        if JSpayload is None:
+            error_msg = "El JS no está registrado!"
+            LexppConfig.log_CRITICAL(error_msg)
+            raise ValueError(error_msg)
         # Configuramos payload
         JSpayload = JSpayload.format(pageOption)
 
