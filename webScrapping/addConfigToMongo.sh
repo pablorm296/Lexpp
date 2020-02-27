@@ -11,4 +11,11 @@ mongoimport --db LexppScrapperConfig \
             --collection idExpedientes \
             --drop \
             --jsonArray \
-            --file webScrapping/data/config/expedientes.json
+            --file webScrapping/data/config/idExpedientes.json
+
+# Diccionario de urls
+mongoimport --db LexppScrapperConfig \
+            --collection urlBank \
+            --drop \
+            --jsonArray \
+            --file webScrapping/data/config/urlBank.json
