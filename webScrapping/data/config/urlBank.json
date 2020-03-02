@@ -1,6 +1,7 @@
 [
     {
         "name": "búsqueda",
+        "method": "",
         "formatted": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/ResultadosPub.aspx?Tema={0}&Consecutivo={1}&Anio={2}&TipoAsunto={3}&Pertenecia={4}&MinistroID={5}&SecretarioID={6}&MateriaID={7}",
         "main": {
             "url": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/ResultadosPub.aspx",
@@ -16,10 +17,11 @@
             ],
             "data": []
         },
-        "misc": []
+        "pURL": ""
     },
     {
         "name": "obtieneDetalleAsunto",
+        "method": "",
         "formatted": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx/ObtieneDetalleAsunto",
         "main": {
             "url": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx/ObtieneDetalleAsunto",
@@ -30,12 +32,11 @@
                 "pURL"
             ]
         },
-        "misc": [
-            "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx?AsuntoID={0}"
-        ]
+        "pURL": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx?AsuntoID={0}"
     },
     {
         "name": "obtieneResolutivoGeneral",
+        "method": "",
         "formatted": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx/ObtieneResolutivoGeneral",
         "main": {
             "url": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx/ObtieneResolutivoGeneral",
@@ -46,12 +47,11 @@
                 "pURL"
             ]
         },
-        "misc": [
-            "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx?AsuntoID={0}"
-        ]
+        "pURL": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx?AsuntoID={0}"
     },
     {
         "name": "obtieneEngrosePorAsuntoSesion",
+        "method": "",
         "formatted": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx/ObtieneEngrosesPorAsuntoSesion",
         "main": {
             "url": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx/ObtieneEngrosesPorAsuntoSesion",
@@ -63,10 +63,11 @@
                 "pStartRow"
             ]
         },
-        "misc": []
+        "pURL": ""
     },
     {
         "name": "obtienePuntosResolutivos",
+        "method": "",
         "formatted": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx/ObtienePuntosResolutivos",
         "main": {
             "url": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx/ObtienePuntosResolutivos",
@@ -78,10 +79,11 @@
                 "pStartRow"
             ]
         },
-        "misc": []
+        "pURL": ""
     },
     {
         "name": "obtieneVotos",
+        "method": "",
         "formatted": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx/ObtieneVotos",
         "main": {
             "url": "http://www2.scjn.gob.mx/ConsultaTematica/PaginasPub/DetallePub.aspx/ObtieneVotos",
@@ -93,6 +95,6 @@
                 "pStartRow"
             ]
         },
-        "misc": []
+        "pURL": ""
     }
 ]
