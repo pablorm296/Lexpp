@@ -4,12 +4,28 @@ from datetime import datetime
 import requests
 import re
 import uuid
+import hashlib
+import json
 
 # Clase para obtener detalles del Asunto
 class expediente:
-    def __init__(self, id):
-        # Guardamos id del asunto
-        pass
+    def __init__(self, idAsunto, idExpediente, config: LexppConfig):
+        # Guardamos el id del expediente e id del asunto
+        self.idAsunto = idAsunto
+        self.idExpediente = idExpediente
+        # Generamos un identificador único para el documento
+        # Uno para control dentro de la biblioteca de expedientes y otro para control dentro de Lexpp
+        self.LexppId = str(uuid.uuid4())
+        self.LexppId_Expedientes = str(uuid.uuid4())
+        #Guardamos el objeto de configuración
+        self.config = config
+
+        # Log info
+        self.config.log_INFO("Expediente creado! idAsunto:{0}| idExpediente:{1}".format(idAsunto, idExpediente))
+        # Log debug
+        self.config.log_DEBUG("Expediente creado! LexppId:{0}| LexppId_Expedientes:{1}".format(self.LexppId, self.LexppId_Expedientes))
+        # Inicializamos el contenido del expediente
+        self.Content = expedienteContent(self.idAsunto, self.config)
 
 class expedienteContent:
     def __init__(self, idAsunto, config: LexppConfig):
@@ -17,6 +33,8 @@ class expedienteContent:
         self.idAsunto = idAsunto
         # Guardamos una copia del objeto de configuración
         self.LexppConfig = config
+        #Guardamos el objeto de configuración
+        self.config = config
         # Iniciamos un dict en el que vamos a ir guardando los datos
         self.content = dict()
     
@@ -24,8 +42,41 @@ class expedienteContent:
         pass
 
     def getDetalleAsunto(self):
-        pass
+        # Obtenemos la url objetivo a partir de la base de datos
+        targetUrl = self.config.myCollections["LexppScrapperConfig/urlBank"].find_one({"name": "obtieneDetalleAsunto"})
+        # Verificamos que la URL esté registrada en la base de datos
+        if targetUrl is None:
+            error_msg = "La URL no está registrada!"
+            self.config.log_CRITICAL(error_msg)
+            raise ValueError(error_msg)
 
+        # Obtenemos la versión de la URL que puede formatearse con strings de python
+        targetUrlFormatted = targetUrl["formatted"]
+        pURLpar = targetUrl["pURL"]
+
+        # Creamos un objeto con los parámetros que vamos a enviar al servidor
+        jsonPayload = {"pAsuntoID": self.idAsunto, "bandera": 0, "pURL": pURLpar}
+
+        # Enviamos solicitud al servidor
+        response = requests.post(targetUrlFormatted, json = jsonPayload)
+
+        # Calculamos md5 de la respuesta
+        md5_encoder = hashlib.md5()
+        response_json = response.json()
+        # Los datos vienen en el campo {"d": "..."} Es importante señalar que el campo "d" es un campo de texto y no un objeto directamente interpretado como json
+        response_json = response_json.get("d", "")
+        md5_encoder.update(response_json.encode('utf-8'))
+        # Obtenemos un objeto a partir de la respuesta
+        response_json_parsed = json.loads(response.json().get("d", {}))
+
+        detalleAsunto = {"data": response_json_parsed, "md5": md5_encoder.hexdigest()}
+
+        #Guardamos la respuesta
+        self.detalleAsunto = detalleAsunto
+        self.content.update({"detalleAsunto": self.detalleAsunto})
+
+        #Regresamos true
+        return True
 
 # Rutina de inicializacion  
 def init(LexppConfig):
@@ -151,14 +202,7 @@ def scanLoop(scrapper: LexppScrapper, config: LexppConfig, pageOption):
             idAsunto = linkElement.get_attribute("href")
             idAsunto = idAsunto.split("=")[1]
             idAsunto = int(idAsunto)
-            # Generamos un identificador único para el documento
-            # Uno para control dentro de la biblioteca de expedientes y otro para control dentro de Lexpp
-            LexppId = str(uuid.uuid4())
-            LexppId_Expedientes = str(uuid.uuid4())
-            # Log info
-            config.log_INFO("Expediente encontrado! idAsunto:{0}| idExpediente:{1}".format(idAsunto, idExpediente))
-            # Log debug
-            config.log_DEBUG("Expediente encontrado! LexppId:{0}| LexppId_Expedientes:{1}".format(LexppId, LexppId_Expedientes))
+            
 
             # Procedemos a obtener detalles del asunto
             
