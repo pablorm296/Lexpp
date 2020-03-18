@@ -1,5 +1,15 @@
+#Ignore logs
 /logs/
-/.vscode/*
 *.log
+
+#Ignore vs code folder
+/.vscode/*
+
+#Ignore pre-compiled python code
 *.pyc
+
+#Ignore data files (that are to big for the repository)
 *.csv
+
+#Ignore R misc files
+*.Rhistory
