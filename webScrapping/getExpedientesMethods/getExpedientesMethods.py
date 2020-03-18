@@ -25,22 +25,17 @@ class expediente:
         # Log debug
         self.config.log_DEBUG("Expediente creado! LexppId:{0}| LexppId_Expedientes:{1}".format(self.LexppId, self.LexppId_Expedientes))
         # Inicializamos el contenido del expediente
-        self.Content = expedienteContent(self.idAsunto, self.config)
-
-class expedienteContent:
-    def __init__(self, idAsunto, config: LexppConfig):
-        # Guardamos id del asunto
-        self.idAsunto = idAsunto
-        # Guardamos una copia del objeto de configuración
-        self.LexppConfig = config
-        #Guardamos el objeto de configuración
-        self.config = config
-        # Iniciamos un dict en el que vamos a ir guardando los datos
-        self.content = dict()
-    
+        self.Content = dict()
+        # Empezamos a guardar el contenido del expediente
+        self.getDetalleAsunto()
+        self.getResolutivoGeneral()
+        # Si existe 
+ 
+    # Obtiene contenido del expediente
     def getContent(self):
-        pass
+        return self.Content
 
+    # Obtiene detalles del asunto
     def getDetalleAsunto(self):
         # Obtenemos la url objetivo a partir de la base de datos
         targetUrl = self.config.myCollections["LexppScrapperConfig/urlBank"].find_one({"name": "obtieneDetalleAsunto"})
@@ -73,10 +68,50 @@ class expedienteContent:
 
         #Guardamos la respuesta
         self.detalleAsunto = detalleAsunto
-        self.content.update({"detalleAsunto": self.detalleAsunto})
+        self.Content.update({"detalleAsunto": self.detalleAsunto})
 
         #Regresamos true
         return True
+
+    # Obtiene resolutivo general
+    def getResolutivoGeneral(self):
+
+        # Obtenemos la url objetivo a partir de la base de datos
+        targetUrl = self.config.myCollections["LexppScrapperConfig/urlBank"].find_one({"name": "obtieneResolutivoGeneral"})
+        # Verificamos que la URL esté registrada en la base de datos
+        if targetUrl is None:
+            error_msg = "La URL no está registrada!"
+            self.config.log_CRITICAL(error_msg)
+            raise ValueError(error_msg)
+
+        # Obtenemos la versión de la URL que puede formatearse con strings de python
+        targetUrlFormatted = targetUrl["formatted"]
+        pURLpar = targetUrl["pURL"]
+
+        # Creamos un objeto con los parámetros que vamos a enviar al servidor
+        jsonPayload = {"pAsuntoID": self.idAsunto, "bandera": 0, "pURL": pURLpar}
+
+        # Enviamos solicitud al servidor
+        response = requests.post(targetUrlFormatted, json = jsonPayload)
+
+        # Calculamos md5 de la respuesta
+        md5_encoder = hashlib.md5()
+        response_json = response.json()
+        # Los datos vienen en el campo {"d": "..."} Es importante señalar que el campo "d" es un campo de texto y no un objeto directamente interpretado como json
+        response_json = response_json.get("d", "")
+        md5_encoder.update(response_json.encode('utf-8'))
+        # Obtenemos un objeto a partir de la respuesta
+        response_json_parsed = json.loads(response.json().get("d", {}))
+
+        resolutivoGeneral = {"data": response_json_parsed, "md5": md5_encoder.hexdigest()}
+
+        #Guardamos la respuesta
+        self.resolutivoGeneral = resolutivoGeneral
+        self.Content.update({"resolutivoGeneral": self.resolutivoGeneral})
+
+        #Regresamos true
+        return True
+
 
 # Rutina de inicializacion  
 def init(LexppConfig):
