@@ -1,4 +1,4 @@
-# Untitled undefined type in Expediente (Suprema Corte de Justicia de la Nación) Schema
+# Untitled array in Expediente (Suprema Corte de Justicia de la Nación) Schema
 
 ```txt
 http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/puntosResolutivos
@@ -13,4 +13,4 @@ http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/puntosResolu
 
 ## puntosResolutivos Type
 
-unknown
+`array`

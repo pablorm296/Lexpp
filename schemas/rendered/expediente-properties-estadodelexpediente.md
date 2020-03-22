@@ -1,4 +1,4 @@
-# Untitled undefined type in Expediente (Suprema Corte de Justicia de la Nación) Schema
+# Untitled string in Expediente (Suprema Corte de Justicia de la Nación) Schema
 
 ```txt
 http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/estadoDelExpediente
@@ -13,4 +13,4 @@ http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/estadoDelExp
 
 ## estadoDelExpediente Type
 
-unknown
+`string`

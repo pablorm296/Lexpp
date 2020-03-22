@@ -1,16 +1,16 @@
-# Untitled string in Expediente (Suprema Corte de Justicia de la Nación) Schema
+# Untitled object in Expediente (Suprema Corte de Justicia de la Nación) Schema
 
 ```txt
-http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/resumenResolucion
+http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/rawContent
 ```
 
-Resumen de la resolución (sentencia) que dio la SCJN al expediente
+Contenido del expediente (tal cual se recibió del servidor de la SCJN)
 
 
 | Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                          |
 | :------------------ | ---------- | -------------- | ----------------------- | :---------------- | --------------------- | ------------------- | ----------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [expediente.schema.json\*](../../out/expediente.schema.json "open original schema") |
 
-## resumenResolucion Type
+## rawContent Type
 
-`string`
+`object` ([Details](expediente-properties-rawcontent.md))

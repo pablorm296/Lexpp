@@ -1,10 +1,10 @@
-# Untitled undefined type in Expediente (Suprema Corte de Justicia de la Nación) Schema
+# Untitled integer in Expediente (Suprema Corte de Justicia de la Nación) Schema
 
 ```txt
 http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/ministroId
 ```
 
-
+ID del Ministro al que se turnó el expediente
 
 
 | Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                          |
@@ -13,4 +13,4 @@ http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/ministroId
 
 ## ministroId Type
 
-unknown
+`integer`

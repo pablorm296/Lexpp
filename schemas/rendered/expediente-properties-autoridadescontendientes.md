@@ -1,10 +1,10 @@
-# Untitled undefined type in Expediente (Suprema Corte de Justicia de la Nación) Schema
+# Untitled string in Expediente (Suprema Corte de Justicia de la Nación) Schema
 
 ```txt
 http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/autoridadesContendientes
 ```
 
-
+Autoridades contendientes
 
 
 | Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                          |
@@ -13,4 +13,4 @@ http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/autoridadesC
 
 ## autoridadesContendientes Type
 
-unknown
+`string`

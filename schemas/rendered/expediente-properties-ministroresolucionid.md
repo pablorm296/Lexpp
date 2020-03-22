@@ -1,16 +1,16 @@
-# Untitled string in Expediente (Suprema Corte de Justicia de la Nación) Schema
+# Untitled integer in Expediente (Suprema Corte de Justicia de la Nación) Schema
 
 ```txt
-http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/resumenResolucion
+http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/ministroResolucionId
 ```
 
-Resumen de la resolución (sentencia) que dio la SCJN al expediente
+ID del Ministro que llevó la resolución del expediente
 
 
 | Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                          |
 | :------------------ | ---------- | -------------- | ----------------------- | :---------------- | --------------------- | ------------------- | ----------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [expediente.schema.json\*](../../out/expediente.schema.json "open original schema") |
 
-## resumenResolucion Type
+## ministroResolucionId Type
 
-`string`
+`integer`

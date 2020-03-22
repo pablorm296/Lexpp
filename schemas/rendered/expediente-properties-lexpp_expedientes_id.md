@@ -1,10 +1,10 @@
-# Untitled undefined type in Expediente (Suprema Corte de Justicia de la Nación) Schema
+# Untitled string in Expediente (Suprema Corte de Justicia de la Nación) Schema
 
 ```txt
 http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/Lexpp_expedientes_id
 ```
 
-
+ID del documento (asignado para la biblioteca de expedientes de Lex++)
 
 
 | Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                          |
@@ -13,4 +13,4 @@ http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/Lexpp_expedi
 
 ## Lexpp_expedientes_id Type
 
-unknown
+`string`
