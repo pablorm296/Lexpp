@@ -20,7 +20,7 @@ Sentencias y Datos de Expedientes de la Suprema Corte de Justicia de la Nación
 | Property                                                | Type          | Required | Nullable       | Defined by                                                                                                                                                                                                     |
 | :------------------------------------------------------ | ------------- | -------- | -------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [LexppId](#LexppId)                                     | `string`      | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-lexppid.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/LexppId")                                     |
-| [Lexpp_expedientes_id](#Lexpp_expedientes_id)           | `string`      | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-lexpp_expedientes_id.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/Lexpp_expedientes_id")           |
+| [Lexpp_expedientesId](#Lexpp_expedientesId)             | `string`      | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-lexpp_expedientesid.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/Lexpp_expedientesId")             |
 | [asuntoId](#asuntoId)                                   | `integer`     | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-asuntoid.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/asuntoId")                                   |
 | [expedienteId](#expedienteId)                           | `string`      | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-expedienteid.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/expedienteId")                           |
 | [tipoAsuntoId](#tipoAsuntoId)                           | `integer`     | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-tipoasuntoid.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/tipoAsuntoId")                           |
@@ -81,19 +81,19 @@ ID del documento (asignado para toda la biblioteca de Lex++)
 
 `string`
 
-## Lexpp_expedientes_id
+## Lexpp_expedientesId
 
 ID del documento (asignado para la biblioteca de expedientes de Lex++)
 
 
-`Lexpp_expedientes_id`
+`Lexpp_expedientesId`
 
 -   is optional
 -   Type: `string`
 -   cannot be null
--   defined in: [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-lexpp_expedientes_id.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/Lexpp_expedientes_id")
+-   defined in: [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-lexpp_expedientesid.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/Lexpp_expedientesId")
 
-### Lexpp_expedientes_id Type
+### Lexpp_expedientesId Type
 
 `string`
 

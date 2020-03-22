@@ -9,7 +9,7 @@
             "type": "string",
             "description": "ID del documento (asignado para toda la biblioteca de Lex++)"
         },
-        "Lexpp_expedientes_id": {
+        "Lexpp_expedientesId": {
             "type": "string",
             "description": "ID del documento (asignado para la biblioteca de expedientes de Lex++)"
         },
