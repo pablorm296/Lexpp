@@ -8,7 +8,7 @@ import hashlib
 import json
 
 # Clase para obtener detalles del Asunto
-class expediente:
+class Expediente:
     def __init__(self, idAsunto, idExpediente, config: LexppConfig):
         # Guardamos el id del expediente e id del asunto
         self.idAsunto = idAsunto
@@ -23,20 +23,71 @@ class expediente:
         # Log info
         self.config.log_INFO("Expediente creado! idAsunto:{0}| idExpediente:{1}".format(idAsunto, idExpediente))
         # Log debug
-        self.config.log_DEBUG("Expediente creado! LexppId:{0}| LexppId_Expedientes:{1}".format(self.LexppId, self.LexppId_Expedientes))
+        self.config.log_DEBUG("LexppId:{0}| LexppId_Expedientes:{1}".format(self.LexppId, self.LexppId_Expedientes))
+        
         # Inicializamos el contenido del expediente
         self.Content = dict()
+        
         # Empezamos a guardar el contenido del expediente
         self.getDetalleAsunto()
         self.getResolutivoGeneral()
-        # Si existe 
- 
-    # Obtiene contenido del expediente
-    def getContent(self):
+        
+        # Si existe resolutivo general, significa que podemos continuar extrayendo los datos
+        foo_resolutivoGeneral = self.getContent(get = 'resolutivoGeneral', warn = False)
+        if foo_resolutivoGeneral["data"] is not None:
+            #Intentamos obtener el id de sesión
+            try:
+                self.sesionId = foo_resolutivoGeneral["data"][0].get("SesionID", None)
+            except:
+                self.sesionId = None
+                config.log_INFO("El asunto {0} no tiene un id de sesión registrado".format(idAsunto))
+
+            #Si hay ID de sesión podemos solicitar engroses, puntos resolutivos y votos
+            if self.sesionId is not None:
+                #Obtener engroses, puntos resolutivos y votos
+                self.getEngrosePorAsuntoSesion()
+                self.getPuntosResolutivos()
+                self.getVotos()
+
+        else:
+            self.config.log_INFO("El asunto {0} aún no tiene resolutivo".format(idAsunto))
+
+        # Obtenemos campos relevantes del expediente
+        # Ver esquema de expedientes lexpp
+
+    # Obtiene contenido del expediente o sólo una parte
+    def getContent(self, get = "All", warn = True):
+        # Verificamos parámetros
+        if not isinstance(get, str):
+            error_msg = "'get' debe se una string!"
+            self.config.log_CRITICAL(error_msg)
+            raise TypeError(error_msg)
+
+        # Convertimos en minúsculas
+        get = get.lower()
+
+        if get == "all":
+            return self.Content
+        
+        # Intentamos obtener el contenido deseado
+        response = self.Content.get(get, None)
+
+        # Si el contenido no existe o está vacío
+        if response is None and not warn:
+            error_msg = "La propiedad '{0}' no existe en el expediente!".format(get)
+            self.config.log_CRITICAL(error_msg)
+            raise Exception(error_msg)
+        elif response is None and warn:
+            error_msg = "La propiedad '{0}' no existe en el expediente!".format(get)
+            self.config.log_WARNING(error_msg)
+
         return self.Content
 
     # Obtiene detalles del asunto
     def getDetalleAsunto(self):
+        #Log info
+        self.config.log_INFO("Obteniendo DetalleAsunto...")
+
         # Obtenemos la url objetivo a partir de la base de datos
         targetUrl = self.config.myCollections["LexppScrapperConfig/urlBank"].find_one({"name": "obtieneDetalleAsunto"})
         # Verificamos que la URL esté registrada en la base de datos
@@ -75,6 +126,8 @@ class expediente:
 
     # Obtiene resolutivo general
     def getResolutivoGeneral(self):
+        # Log info
+        self.config.log_INFO("Obteniendo DetalleAsunto...")
 
         # Obtenemos la url objetivo a partir de la base de datos
         targetUrl = self.config.myCollections["LexppScrapperConfig/urlBank"].find_one({"name": "obtieneResolutivoGeneral"})
@@ -112,6 +165,122 @@ class expediente:
         #Regresamos true
         return True
 
+    def getEngrosePorAsuntoSesion(self):
+        # Log INFO
+        self.config.log_INFO("Obteniendo EngrosePorAsuntoSesion...")
+
+        # Obtenemos la url objetivo a partir de la base de datos
+        targetUrl = self.config.myCollections["LexppScrapperConfig/urlBank"].find_one({"name": "obtieneEngrosePorAsuntoSesion"})
+        # Verificamos que la URL esté registrada en la base de datos
+        if targetUrl is None:
+            error_msg = "La URL no está registrada!"
+            self.config.log_CRITICAL(error_msg)
+            raise ValueError(error_msg)
+
+        # Obtenemos la versión de la URL que puede formatearse con strings de python
+        targetUrlFormatted = targetUrl["formatted"]
+
+        # Creamos un objeto con los parámetros que vamos a enviar al servidor
+        jsonPayload = {"pAsuntoID": self.idAsunto, "pRegistrosPagina": 5, "pSesionID": self.sesionId, "pStartRow": 0}
+
+        # Enviamos solicitud al servidor
+        response = requests.post(targetUrlFormatted, json = jsonPayload)
+
+        # Calculamos md5 de la respuesta
+        md5_encoder = hashlib.md5()
+        response_json = response.json()
+        # Los datos vienen en el campo {"d": "..."} Es importante señalar que el campo "d" es un campo de texto y no un objeto directamente interpretado como json
+        response_json = response_json.get("d", "")
+        md5_encoder.update(response_json.encode('utf-8'))
+        # Obtenemos un objeto a partir de la respuesta
+        response_json_parsed = json.loads(response.json().get("d", {}))
+
+        #Regresamos respuesta
+        engrosePorAsuntoSesion = {"data": response_json_parsed, "md5": md5_encoder.hexdigest()}
+
+        #Guardamos la respuesta
+        self.engrosePorAsuntoSesion = engrosePorAsuntoSesion
+        self.Content.update({"engrosePorAsuntoSesion": self.engrosePorAsuntoSesion})
+
+        return True
+
+    def getPuntosResolutivos(self):
+        # Log INFO
+        self.config.log_INFO("Obteniendo PuntosResolutivos...")
+
+        # Obtenemos la url objetivo a partir de la base de datos
+        targetUrl = self.config.myCollections["LexppScrapperConfig/urlBank"].find_one({"name": "obtienePuntosResolutivos"})
+        # Verificamos que la URL esté registrada en la base de datos
+        if targetUrl is None:
+            error_msg = "La URL no está registrada!"
+            self.config.log_CRITICAL(error_msg)
+            raise ValueError(error_msg)
+
+        # Obtenemos la versión de la URL que puede formatearse con strings de python
+        targetUrlFormatted = targetUrl["formatted"]
+
+        # Creamos un objeto con los parámetros que vamos a enviar al servidor
+        jsonPayload = {"pAsuntoID": self.idAsunto, "pRegistrosPagina": 5, "pSesionID": self.sesionId, "pStartRow": 0}
+
+        # Enviamos solicitud al servidor
+        response = requests.post(targetUrlFormatted, json = jsonPayload)
+
+        # Calculamos md5 de la respuesta
+        md5_encoder = hashlib.md5()
+        response_json = response.json()
+        # Los datos vienen en el campo {"d": "..."} Es importante señalar que el campo "d" es un campo de texto y no un objeto directamente interpretado como json
+        response_json = response_json.get("d", "")
+        md5_encoder.update(response_json.encode('utf-8'))
+        # Obtenemos un objeto a partir de la respuesta
+        response_json_parsed = json.loads(response.json().get("d", {}))
+
+        #Regresamos respuesta
+        puntosResolutivos = {"data": response_json_parsed, "md5": md5_encoder.hexdigest()}
+
+        #Guardamos la respuesta
+        self.puntosResolutivos = puntosResolutivos
+        self.Content.update({"puntosResolutivos": self.puntosResolutivos})
+
+        return True
+
+    def getVotos(self):
+        # Log INFO
+        self.config.log_INFO("Obteniendo Votos...")
+
+        # Obtenemos la url objetivo a partir de la base de datos
+        targetUrl = self.config.myCollections["LexppScrapperConfig/urlBank"].find_one({"name": "obtieneVotos"})
+        # Verificamos que la URL esté registrada en la base de datos
+        if targetUrl is None:
+            error_msg = "La URL no está registrada!"
+            self.config.log_CRITICAL(error_msg)
+            raise ValueError(error_msg)
+
+        # Obtenemos la versión de la URL que puede formatearse con strings de python
+        targetUrlFormatted = targetUrl["formatted"]
+
+        # Creamos un objeto con los parámetros que vamos a enviar al servidor
+        jsonPayload = {"pAsuntoID": self.idAsunto, "pRegistrosPagina": 5, "pSesionID": self.sesionId, "pStartRow": 0}
+
+        # Enviamos solicitud al servidor
+        response = requests.post(targetUrlFormatted, json = jsonPayload)
+
+        # Calculamos md5 de la respuesta
+        md5_encoder = hashlib.md5()
+        response_json = response.json()
+        # Los datos vienen en el campo {"d": "..."} Es importante señalar que el campo "d" es un campo de texto y no un objeto directamente interpretado como json
+        response_json = response_json.get("d", "")
+        md5_encoder.update(response_json.encode('utf-8'))
+        # Obtenemos un objeto a partir de la respuesta
+        response_json_parsed = json.loads(response.json().get("d", {}))
+
+        #Regresamos respuesta
+        votos = {"data": response_json_parsed, "md5": md5_encoder.hexdigest()}
+
+        #Guardamos la respuesta
+        self.votos = votos
+        self.Content.update({"votos": self.votos})
+
+        return True
 
 # Rutina de inicializacion  
 def init(LexppConfig):
@@ -238,8 +407,8 @@ def scanLoop(scrapper: LexppScrapper, config: LexppConfig, pageOption):
             idAsunto = idAsunto.split("=")[1]
             idAsunto = int(idAsunto)
             
-
             # Procedemos a obtener detalles del asunto
+            fooExpediente = Expediente(idAsunto, idExpediente, config)
             
 # Si el usuario quiere descargar por tipoAsunto
 def getByAsuntoID(asuntoID, headlessOption, pageOption, LexppConfig):
