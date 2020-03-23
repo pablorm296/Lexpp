@@ -223,7 +223,7 @@ class Expediente:
                     # Si es válido
                     if fooTime:
                         fooTime = fooTime.groups()[0]
-                        fooTime = datetime.datetime.strptime(fooTime, "%d/%m/%Y").isoformat()
+                        fooTime = datetime.strptime(fooTime, "%d/%m/%Y").isoformat()
                         value = fooTime
             # Si es una lista
             if isinstance(value, list) and key in nombresPropios:
