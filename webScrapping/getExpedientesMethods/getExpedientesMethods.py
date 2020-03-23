@@ -357,6 +357,9 @@ class Expediente:
 
     # Obtiene detalles del asunto
     def getDetalleAsunto(self):
+        # Init empty doc in self
+        self.detalleAsunto = None
+
         #Log info
         self.config.log_INFO("Obteniendo DetalleAsunto...")
 
@@ -398,6 +401,9 @@ class Expediente:
 
     # Obtiene resolutivo general
     def getResolutivoGeneral(self):
+        # Init empty doc in self
+        self.resolutivoGeneral = None
+
         # Log info
         self.config.log_INFO("Obteniendo DetalleAsunto...")
 
@@ -438,6 +444,9 @@ class Expediente:
         return True
 
     def getEngrosePorAsuntoSesion(self):
+        # Init empty doc in self
+        self.engrosePorAsuntoSesion = None
+
         # Log INFO
         self.config.log_INFO("Obteniendo EngrosePorAsuntoSesion...")
 
@@ -477,6 +486,9 @@ class Expediente:
         return True
 
     def getPuntosResolutivos(self):
+        # Init empty doc in self
+        self.puntosResolutivos = None
+
         # Log INFO
         self.config.log_INFO("Obteniendo PuntosResolutivos...")
 
@@ -516,6 +528,9 @@ class Expediente:
         return True
 
     def getVotos(self):
+        # Init empty doc in self
+        self.votos = None
+
         # Log INFO
         self.config.log_INFO("Obteniendo Votos...")
 
