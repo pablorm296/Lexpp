@@ -711,7 +711,8 @@ def getByAsuntoID(asuntoID, headlessOption, pageOption, LexppConfig):
     LexppConfig.log_INFO("Obteniendo expedientes por ID de asunto...")
 
     # Guardamos en el objeto de configuración que estamos en el modo getByAsunto
-    setattr(LexppConfig, "scrapperMode", "expedientes_byAsuntoID_{0}".format(asuntoID))
+    setattr(LexppConfig, "scrapperMode", "tipoAsunto")
+    setattr(LexppConfig, "scrapperModeComplete", "expedientes_byAsuntoID_{0}".format(asuntoID))
 
     # Rutina de inicializacion
     LexppConfig = init(LexppConfig)
