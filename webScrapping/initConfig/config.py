@@ -12,9 +12,6 @@ class LexppConfig:
         # Iniciar base de datos
         self.initMongo(targetClient, targetDB, targetCollection)
 
-        # Gardar el modo en el que inició el script
-        self.scrapperMode = mode
-
     # Función para inicializar la bitácora
     def initLog(self, logFile, logLevel):
         # Definimos bitácora
