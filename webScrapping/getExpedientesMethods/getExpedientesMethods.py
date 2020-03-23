@@ -335,10 +335,7 @@ class Expediente:
             self.config.log_CRITICAL(error_msg)
             raise TypeError(error_msg)
 
-        # Convertimos en minúsculas
-        get = get.lower()
-
-        if get == "all":
+        if get == "All":
             return self.Content
         
         # Intentamos obtener el contenido deseado
@@ -405,7 +402,7 @@ class Expediente:
         self.resolutivoGeneral = None
 
         # Log info
-        self.config.log_INFO("Obteniendo DetalleAsunto...")
+        self.config.log_INFO("Obteniendo resolutivoGeneral...")
 
         # Obtenemos la url objetivo a partir de la base de datos
         targetUrl = self.config.myCollections["LexppScrapperConfig/urlBank"].find_one({"name": "obtieneResolutivoGeneral"})
