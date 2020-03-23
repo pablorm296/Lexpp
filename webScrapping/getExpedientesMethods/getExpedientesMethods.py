@@ -92,7 +92,7 @@ class Expediente:
                 self.config.log_WARNING(warning_msg)
             else:
                 # Definir archivo objetivo
-                targetPath = "{0}{1}_{2}_engrose.{3}".format(path, tipoAsuntoId, self.LexppId_Expedientes, extension)
+                targetPath = "{0}{1}_engrose.{2}".format(path, self.LexppId_Expedientes, extension)
                 #Guardamos el archivo
                 with open(targetPath, "wb") as targetFile:
                     targetFile.write(engroseResponse.content)
@@ -140,7 +140,7 @@ class Expediente:
         # Log info
         self.config.log_INFO("Escribiendo información y contenido del expediente en disco...")
         # Definir archivo objetivo
-        targetPath = "{0}{1}_{2}_dumped.json".format(path, tipoAsuntoId, self.LexppId_Expedientes)
+        targetPath = "{0}{1}_dumped.json".format(path, self.LexppId_Expedientes)
         # Escribir contenidos
         with open(targetPath, "w") as targetFile:
             json.dump(self.Schema, targetFile)
