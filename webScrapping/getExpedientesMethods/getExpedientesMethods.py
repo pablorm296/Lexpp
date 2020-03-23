@@ -60,8 +60,21 @@ class Expediente:
         self.sanitizeSchema()
 
     # Función para descargar los documentos
-    def downloadDocs(self):
+    def downloadDocs(self, path):
+        # Log info
+        self.config.log_INFO("Descargando documentos...")
         pass
+
+    def dump(self, path):
+        # Log info
+        self.config.log_INFO("Escribiendo información y contenido del expediente en disco...")
+        # Definir archivo objetivo
+        targetPath = "{0}{1}.json".format(path, self.LexppId_Expedientes)
+        # Escribir contenidos
+        with open(targetPath, "w") as targetFile:
+            json.dump(self.Schema, targetFile)
+
+        return True
 
     # Función para limpiar los campos de interés
     def sanitizeSchema(self):
@@ -267,8 +280,8 @@ class Expediente:
             self.config.log_CRITICAL(error_msg)
             raise Exception(error_msg)
         elif response is None and warn:
-            error_msg = "La propiedad '{0}' no existe en el expediente!".format(get)
-            self.config.log_WARNING(error_msg)
+            warning_msg = "La propiedad '{0}' no existe en el expediente!".format(get)
+            self.config.log_WARNING(warning_msg)
 
         return self.Content
 
