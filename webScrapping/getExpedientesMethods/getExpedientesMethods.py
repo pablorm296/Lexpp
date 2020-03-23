@@ -35,8 +35,8 @@ class Expediente:
         self.getResolutivoGeneral()
         
         # Si existe resolutivo general, significa que podemos continuar extrayendo los datos
-        foo_resolutivoGeneral = self.getContent(get = 'resolutivoGeneral', warn = False)
-        if foo_resolutivoGeneral["data"] is not None:
+        foo_resolutivoGeneral = self.getContent(get = 'resolutivoGeneral', warn = True)
+        if foo_resolutivoGeneral["data"] is not None and foo_resolutivoGeneral is not None:
             # Intentamos obtener el id de sesión
             try:
                 self.sesionId = foo_resolutivoGeneral["data"][0].get("SesionID", None)
