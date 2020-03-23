@@ -52,6 +52,7 @@ class Expediente:
                 self.getVotos()
 
         else:
+            self.sesionId = None
             self.config.log_INFO("El asunto {0} aún no tiene resolutivo".format(idAsunto))
 
         # Obtenemos campos relevantes del expediente
