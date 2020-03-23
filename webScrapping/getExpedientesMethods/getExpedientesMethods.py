@@ -215,7 +215,7 @@ class Expediente:
                     if fooEpoch:
                         fooEpoch = fooEpoch.groups()[0]
                         fooEpoch = int(fooEpoch)/1000
-                        fooEpoch = datetime.datetime.fromtimestamp(fooEpoch).isoformat()
+                        fooEpoch = datetime.fromtimestamp(fooEpoch).isoformat()
                         value = fooEpoch
                     
                     # Intentar convertir formato de fecha estandar
