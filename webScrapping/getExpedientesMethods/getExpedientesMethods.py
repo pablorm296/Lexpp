@@ -249,7 +249,7 @@ class Expediente:
 
         # Por cada propiedad en el esquema, agregarla al esquema del expediente
         for property in jsonSchemaProperties.keys():
-            self.Schema.update(property, None)
+            self.Schema.update({property: None})
         
         # Actualizar propiedades
         # Propiedades generales (ya están en self)
