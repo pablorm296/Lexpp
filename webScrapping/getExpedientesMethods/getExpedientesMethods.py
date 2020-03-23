@@ -25,8 +25,9 @@ class Expediente:
         # Log debug
         self.config.log_DEBUG("LexppId:{0}| LexppId_Expedientes:{1}".format(self.LexppId, self.LexppId_Expedientes))
         
-        # Inicializamos el contenido del expediente
+        # Inicializamos el contenido y el esquema del expediente
         self.Content = dict()
+        self.Schema = dict()
         
         # Empezamos a guardar el contenido del expediente
         self.getDetalleAsunto()
@@ -35,16 +36,16 @@ class Expediente:
         # Si existe resolutivo general, significa que podemos continuar extrayendo los datos
         foo_resolutivoGeneral = self.getContent(get = 'resolutivoGeneral', warn = False)
         if foo_resolutivoGeneral["data"] is not None:
-            #Intentamos obtener el id de sesión
+            # Intentamos obtener el id de sesión
             try:
                 self.sesionId = foo_resolutivoGeneral["data"][0].get("SesionID", None)
             except:
                 self.sesionId = None
                 config.log_INFO("El asunto {0} no tiene un id de sesión registrado".format(idAsunto))
 
-            #Si hay ID de sesión podemos solicitar engroses, puntos resolutivos y votos
+            # Si hay ID de sesión podemos solicitar engroses, puntos resolutivos y votos
             if self.sesionId is not None:
-                #Obtener engroses, puntos resolutivos y votos
+                # Obtener engroses, puntos resolutivos y votos
                 self.getEngrosePorAsuntoSesion()
                 self.getPuntosResolutivos()
                 self.getVotos()
@@ -54,6 +55,98 @@ class Expediente:
 
         # Obtenemos campos relevantes del expediente
         # Ver esquema de expedientes lexpp
+        self.fillSchema()
+
+    # Llena todos los campos de interés del expediente
+    def fillSchema(self):
+        # Log info
+        self.config.log_INFO("Generando campos de interés...")
+
+        # Abrir schema
+        with open("/var/www/system/schemas/SCJN/expediente.schema.json") as jsonSchemaFile:
+            jsonSchema = json.load(jsonSchemaFile)
+        
+        jsonSchemaProperties = jsonSchema["properties"]
+
+        # Por cada propiedad en el esquema, agregarla al esquema del expediente
+        for property in jsonSchemaProperties.keys():
+            self.Schema.update(property, None)
+        
+        # Actualizar propiedades
+        # Propiedades generales (ya están en self)
+        self.Schema["rawContent"] = self.Content
+        self.Schema["LexppId"] = self.LexppId
+        self.Schema["Lexpp_expedientesId"] = self.LexppId_Expedientes
+        self.Schema["asuntoId"] = self.idAsunto
+        self.Schema["expedienteId"] = self.idExpediente
+
+        # Propiedades que se obtienen del documento detalleAsunto
+        self.Schema["tipoAsuntoId"] = self.detalleAsunto["data"].get("TipoAsuntoID", None)
+        self.Schema["tipoAsunto"] = self.detalleAsunto["data"].get("TipoAsunto", None)
+        self.Schema["pertenenecia"] = self.detalleAsunto["data"].get("Pertenencia", None)
+        self.Schema["oficioId"] = self.detalleAsunto["data"].get("Oficio", None)
+        self.Schema["estadoDelExpediente"] = self.detalleAsunto["data"].get("Estado", None)
+        self.Schema["ministroId"] = self.detalleAsunto["data"].get("Ministro", None)
+        self.Schema["ministro"] = None
+        self.Schema["secretarioProyectista"] = self.detalleAsunto["data"].get("SecretarioProyectista", None)
+        self.Schema["secretarioAuxiliar"] = self.detalleAsunto["data"].get("SecretarioAuxiliar", None)
+        self.Schema["fechaRecepcion"] = self.detalleAsunto["data"].get("FechaRecepcion", None)
+        self.Schema["fechaTurnoMinistro"] = self.detalleAsunto["data"].get("FechaTurnoMinistro", None)
+        self.Schema["fechaResolucion"] = self.detalleAsunto["data"].get("FechaResolucion", None)
+        self.Schema["actoReclamado"] = self.detalleAsunto["data"].get("ActoReclamado", None)
+        self.Schema["autoridades"] = self.detalleAsunto["data"].get("Autoridades", None)
+        self.Schema["autoridadesContendientes"] = self.detalleAsunto["data"].get("AutoridadesContendientes", None)
+        self.Schema["promoventes"] = self.detalleAsunto["data"].get("Promoventes", None)
+        self.Schema["area"] = self.detalleAsunto["data"].get("Area", None)
+        self.Schema["tema"] = self.detalleAsunto["data"].get("Tema", None)
+        self.Schema["temaLexpp"] = None
+        self.Schema["temaFondo"] = self.detalleAsunto["data"].get("TemaFondo", None)
+        self.Schema["resumenResolucion"] = self.detalleAsunto["data"].get("Resolucion", None)
+        self.Schema["organoOrigen"] = self.detalleAsunto["data"].get("Organos", None)
+        self.Schema["engroseUrl"] = self.detalleAsunto["data"].get("EngrosePublicoURL", None)
+        self.Schema["votosEspecialesUrl"] = None
+        self.Schema["ministroResolucionId"] = None
+
+        # Propiedades que se obtienen del documento resolutivoGeneral
+        self.Schema["ministroResolucion"] = self.resolutivoGeneral["data"][0].get("Ministro", None)
+        self.Schema["secretarioResolucionId"] = self.resolutivoGeneral["data"][0].get("SecretarioID", None)
+        self.Schema["secretarioResolucion"] = self.resolutivoGeneral["data"][0].get("Secretario", None)
+        self.Schema["resolucionId"] = self.resolutivoGeneral["data"][0].get("SesionID", None)
+        self.Schema["pertenenciaResolucionId"] = self.resolutivoGeneral["data"][0].get("PertenenciaID", None)
+        self.Schema["pertenenciaResolucion"] = self.resolutivoGeneral["data"][0].get("Pertenencia", None)
+        self.Schema["fechaSesion"] = self.resolutivoGeneral["data"][0].get("FechaSesion", None)
+        self.Schema["fechaResolucionEngrose"] = self.resolutivoGeneral["data"][0].get("FechaResolucion", None)
+
+        # Primero verificamos que el documento tenga una sesión de resolución
+        if self.sesionId is not None:
+            # Verificamos que existan puntos resolutivos
+            if self.puntosResolutivos["data"] is not None:
+                # Listas que se obtienen a partir del documento de puntos resolutivos
+                # Definimos listas
+                self.Schema["puntosResolutivos"] = list()
+                self.Schema["votosPuntosResolutivos"] = list()
+                # Llenamos listas
+                for i in range(len(self.puntosResolutivos["data"])):
+                    self.Schema["puntosResolutivos"].append(self.puntosResolutivos["data"][i].get("PuntoResolucion", None))
+                    self.Schema["votosPuntosResolutivos"].append(self.puntosResolutivos["data"][i].get("Votacion", None))
+
+            # Verificamos que existan puntos resolutivos
+            if self.votos["data"] is not None:
+                # Listas que se obtienen a partir del documento de votos
+                self.Schema["ministroVotosEspeciales"] = list()
+                self.Schema["ministroVotosEspecialesId"] = list()
+                self.Schema["tipoVotosEspeciales"] = list()
+                self.Schema["tipoVotosEspecialesId"] = list()
+                self.Schema["urlVotosEspeciales"] = list()
+                # Llenamos las listas
+                for i in range(len(self.votos["data"])):
+                    self.Schema["ministroVotosEspeciales"].append(self.votos["data"][i]["Ministros"])
+                    self.Schema["ministroVotosEspecialesId"].append(self.votos["data"][i]["MinistroFirmaID"])
+                    self.Schema["tipoVotosEspeciales"].append(self.votos["data"][i]["TipoVoto"])
+                    self.Schema["tipoVotosEspecialesId"].append(self.votos["data"][i]["TipoVotoID"])
+                    self.Schema["urlVotosEspeciales"].append(self.votos["data"][i]["URLInternet"])
+
+        return True
 
     # Obtiene contenido del expediente o sólo una parte
     def getContent(self, get = "All", warn = True):
