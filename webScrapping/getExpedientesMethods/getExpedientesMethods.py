@@ -574,7 +574,6 @@ def init(LexppConfig):
 
 # Función para guardar páginas
 def logCurrentPage(modo: str, current, total):
-    print(modo)
     if not isinstance(modo, str):
         raise TypeError("El modo debe ser una cadena de texto")
     if modo not in ["todo", "tipoAsunto", "orgRadicacion", "ministro", "especifico"]:
