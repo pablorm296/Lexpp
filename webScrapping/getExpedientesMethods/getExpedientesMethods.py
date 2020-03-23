@@ -724,7 +724,7 @@ def getByAsuntoID(asuntoID, headlessOption, pageOption, LexppConfig):
         raise ValueError(error_msg)
 
     # Iniciamos nueva instancia del explorador web
-    myScrapper = LexppScrapper(headless = False)
+    myScrapper = LexppScrapper(headless = headlessOption)
 
     # Navegamos a la URL (página de resultados de búsqueda de la SCJN)
     targetURL = LexppConfig.myCollections["LexppScrapperConfig/urlBank"].find_one({"name": "búsqueda"})
