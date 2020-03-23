@@ -724,6 +724,10 @@ def getByAsuntoID(asuntoID, headlessOption, pageOption, LexppConfig):
         raise ValueError(error_msg)
 
     # Iniciamos nueva instancia del explorador web
+    if headlessOption == 0: 
+        headlessOption = False 
+    elif headlessOption == 1: 
+        headlessOption = True
     myScrapper = LexppScrapper(headless = headlessOption)
 
     # Navegamos a la URL (página de resultados de búsqueda de la SCJN)
