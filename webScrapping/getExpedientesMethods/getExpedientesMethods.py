@@ -6,6 +6,7 @@ import re
 import uuid
 import hashlib
 import json
+import time
 
 # Clase para obtener detalles del Asunto
 class Expediente:
@@ -592,7 +593,7 @@ def logCurrentPage(modo: str, current, total):
         logFile.write(logMsg)
 
 # Función para esperar que el loader desaparezca
-def waitForLoader(scrapper: LexppScrapper, config: LexppConfig, timeOut = 30, onTimeOut = "retry"):
+def waitForLoader(scrapper: LexppScrapper, config: LexppConfig, padding = 2, timeOut = 30, onTimeOut = "retry"):
     if onTimeOut not in ["retry", "error"]:
         raise ValueError("Unknown value to parameter onTimeOut")
 
@@ -613,6 +614,9 @@ def waitForLoader(scrapper: LexppScrapper, config: LexppConfig, timeOut = 30, on
     else:
         # Si no ocurrió un error, mandamos True para romper la recursividad
         config.log_INFO("Espera terminada!")
+        # Esperamos el padding
+        time.sleep(padding)
+        
         return True
 
 # Rutina para escanear expedientes
