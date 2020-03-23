@@ -616,7 +616,7 @@ def waitForLoader(scrapper: LexppScrapper, config: LexppConfig, padding = 2, tim
         config.log_INFO("Espera terminada!")
         # Esperamos el padding
         time.sleep(padding)
-        
+
         return True
 
 # Rutina para escanear expedientes
@@ -646,7 +646,7 @@ def scanLoop(scrapper: LexppScrapper, config: LexppConfig, pageOption):
 
         # Recolectamos información sobre la página actual
         config.log_DEBUG("Buscando número de págin actual de resultados...")
-        currentPg = scrapper.getElement(element = ".dxpCurrentPageNumber", findBy = "class name", multiple = True)
+        currentPg = scrapper.getElement(element = "dxpCurrentPageNumber", findBy = "class name", multiple = True)
         currentPgTxt = currentPg[0].text
         currentPgRex = re.search(r"(\d+)", currentPgTxt)
         currentPgRex = currentPgRex.groups()[0]
@@ -670,7 +670,7 @@ def scanLoop(scrapper: LexppScrapper, config: LexppConfig, pageOption):
         logCurrentPage(config.scrapperMode, currentPgInt, totalPgCountInt)
 
         # Obtenemos los links con los expedientes
-        expedientesLinks = scrapper.getElement(".dxgvControl a", "class name", True, False)
+        expedientesLinks = scrapper.getElement("dxgvControl a", "class name", True, False)
 
         # Iniciamos una operación por cada uno de los expedientes
         for linkElement in expedientesLinks:
