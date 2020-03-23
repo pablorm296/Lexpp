@@ -61,7 +61,7 @@ class Expediente:
         self.sanitizeSchema()
 
     # Función para descargar los documentos
-    def downloadDocs(self, path):
+    def downloadDocs(self, path, tipoAsuntoId):
         # Log info
         self.config.log_INFO("Descargando documentos...")
         
@@ -91,7 +91,7 @@ class Expediente:
                 self.config.log_WARNING(warning_msg)
             else:
                 # Definir archivo objetivo
-                targetPath = "{0}{1}_engrose.{2}".format(path, self.LexppId_Expedientes, extension)
+                targetPath = "{0}{1}_{2}_engrose.{3}".format(path, tipoAsuntoId, self.LexppId_Expedientes, extension)
                 #Guardamos el archivo
                 with open(targetPath, "wb") as targetFile:
                     targetFile.write(engroseResponse.content)
@@ -127,7 +127,7 @@ class Expediente:
                     self.config.log_WARNING(warning_msg)
                 else:
                     # Definir archivo objetivo
-                    targetPath = "{0}{1}_voto_{2}.{3}".format(path, self.LexppId_Expedientes, i, extension)
+                    targetPath = "{0}{2}_{3}_voto_{4}.{5}".format(path, tipoAsuntoId, self.LexppId_Expedientes, i, extension)
                     #Guardamos el archivo
                     with open(targetPath, "wb") as targetFile:
                         targetFile.write(engroseResponse.content)
@@ -135,11 +135,11 @@ class Expediente:
             warning_msg = "El expediente {0} no tiene votos especiales".format(self.idAsunto)
             self.config.log_WARNING(warning_msg)
 
-    def dump(self, path):
+    def dump(self, path, tipoAsuntoId):
         # Log info
         self.config.log_INFO("Escribiendo información y contenido del expediente en disco...")
         # Definir archivo objetivo
-        targetPath = "{0}{1}_dumped.json".format(path, self.LexppId_Expedientes)
+        targetPath = "{0}{1}_{2}_dumped.json".format(path, tipoAsuntoId, self.LexppId_Expedientes)
         # Escribir contenidos
         with open(targetPath, "w") as targetFile:
             json.dump(self.Schema, targetFile)
@@ -635,7 +635,7 @@ def waitForLoader(scrapper: LexppScrapper, config: LexppConfig, padding = 2, tim
         return True
 
 # Rutina para escanear expedientes
-def scanLoop(scrapper: LexppScrapper, config: LexppConfig, pageOption):
+def scanLoop(scrapper: LexppScrapper, config: LexppConfig, pageOption, asuntoID):
     # Iniciamos rutina
     # Primero recolectamos el número total de páginas
     totalPgCount = scrapper.getElement(element = "/html/body/div[1]/div/form/div[3]/div[2]/div[2]/table/tbody/tr[2]/td", findBy = "xpath")
@@ -702,9 +702,9 @@ def scanLoop(scrapper: LexppScrapper, config: LexppConfig, pageOption):
             fooExpediente = Expediente(idAsunto, idExpediente, config)
 
             # Descargamos documentos
-            fooExpediente.downloadDocs("/var/www/db/SCJN/expedientes/docs/")
+            fooExpediente.downloadDocs("/var/www/db/SCJN/expedientes/docs/", tipoAsuntoId = asuntoID)
             # Guardamos información del expediente
-            fooExpediente.dump("/var/www/db/SCJN/expedientes/")
+            fooExpediente.dump("/var/www/db/SCJN/expedientes/", tipoAsuntoId = asuntoID)
         
         if lastPage:
             # Log info
@@ -779,5 +779,5 @@ def getByAsuntoID(asuntoID, headlessOption, pageOption, LexppConfig):
         waitForLoader(myScrapper, LexppConfig)
 
     #Iniciamos el loop de recoleciión
-    scanLoop(myScrapper, LexppConfig, pageOption)
+    scanLoop(myScrapper, LexppConfig, pageOption, asuntoID)
     
