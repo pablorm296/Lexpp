@@ -287,14 +287,16 @@ class Expediente:
         self.Schema["ministroResolucionId"] = None
 
         # Propiedades que se obtienen del documento resolutivoGeneral
-        self.Schema["ministroResolucion"] = self.resolutivoGeneral["data"][0].get("Ministro", None)
-        self.Schema["secretarioResolucionId"] = self.resolutivoGeneral["data"][0].get("SecretarioID", None)
-        self.Schema["secretarioResolucion"] = self.resolutivoGeneral["data"][0].get("Secretario", None)
-        self.Schema["resolucionId"] = self.resolutivoGeneral["data"][0].get("SesionID", None)
-        self.Schema["pertenenciaResolucionId"] = self.resolutivoGeneral["data"][0].get("PertenenciaID", None)
-        self.Schema["pertenenciaResolucion"] = self.resolutivoGeneral["data"][0].get("Pertenencia", None)
-        self.Schema["fechaSesion"] = self.resolutivoGeneral["data"][0].get("FechaSesion", None)
-        self.Schema["fechaResolucionEngrose"] = self.resolutivoGeneral["data"][0].get("FechaResolucion", None)
+        # Primero verificamos que el contenido del resolutivo no esté vacío
+        if len(self.resolutivoGeneral["data"]) == 0 or self.resolutivoGeneral is None:
+            self.Schema["ministroResolucion"] = self.resolutivoGeneral["data"][0].get("Ministro", None)
+            self.Schema["secretarioResolucionId"] = self.resolutivoGeneral["data"][0].get("SecretarioID", None)
+            self.Schema["secretarioResolucion"] = self.resolutivoGeneral["data"][0].get("Secretario", None)
+            self.Schema["resolucionId"] = self.resolutivoGeneral["data"][0].get("SesionID", None)
+            self.Schema["pertenenciaResolucionId"] = self.resolutivoGeneral["data"][0].get("PertenenciaID", None)
+            self.Schema["pertenenciaResolucion"] = self.resolutivoGeneral["data"][0].get("Pertenencia", None)
+            self.Schema["fechaSesion"] = self.resolutivoGeneral["data"][0].get("FechaSesion", None)
+            self.Schema["fechaResolucionEngrose"] = self.resolutivoGeneral["data"][0].get("FechaResolucion", None)
 
         # Primero verificamos que el documento tenga una sesión de resolución
         if self.sesionId is not None:
