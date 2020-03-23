@@ -715,6 +715,8 @@ def scanLoop(scrapper: LexppScrapper, config: LexppConfig, pageOption, asuntoID)
             # Avanzamos a la siguiente página
             # Obtenemos JS correspondiente
             JSpayload = config.myCollections["LexppScrapperConfig/jsBank"].find_one({"name": "nextPage"})
+            # Configuramos payload
+            JSpayload = JSpayload["payload"]
             if JSpayload is None:
                 error_msg = "El JS no está registrado!"
                 config.log_CRITICAL(error_msg)
@@ -770,8 +772,7 @@ def getByAsuntoID(asuntoID, headlessOption, pageOption, LexppConfig):
             error_msg = "El JS no está registrado!"
             LexppConfig.log_CRITICAL(error_msg)
             raise ValueError(error_msg)
-        # Configuramos payload
-        JSpayload = JSpayload["payload"].format(pageOption)
+        c.format(pageOption)
         # Ejecutamos payload
         myScrapper.webdriver.execute_script(JSpayload)
 
