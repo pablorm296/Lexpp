@@ -64,6 +64,9 @@ class Expediente:
         # Log info
         self.config.log_INFO("Descargando documentos...")
         
+        # Log info
+        self.config.log_INFO("Descargando engrose...")
+
         # Descargamos engroses
         engroseUrl = self.Schema.get("engroseUrl", None)
         if engroseUrl is not None:
@@ -94,6 +97,9 @@ class Expediente:
         else:
             warning_msg = "El expediente {0} no tiene un documento de engrose".format(self.idAsunto)
             self.config.log_WARNING(warning_msg)
+
+        # Log info
+        self.config.log_INFO("Descargando votos especiales...")
 
         # Descargar votos especiales
         votosEspecialesUrl = self.Schema.get("votosEspecialesUrl", None)
@@ -647,6 +653,7 @@ def scanLoop(scrapper: LexppScrapper, config: LexppConfig, pageOption):
             lastPage = False
         elif currentPgInt == totalPgCountInt:
             lastPage = True
+            continueState = False
         elif currentPgInt > totalPgCountInt:
             error_msg = "Hubo un error en la paginación (la página actual es mayor al total de páginas)"
             config.log_CRITICAL(error_msg)
@@ -674,6 +681,28 @@ def scanLoop(scrapper: LexppScrapper, config: LexppConfig, pageOption):
             
             # Procedemos a obtener detalles del asunto
             fooExpediente = Expediente(idAsunto, idExpediente, config)
+
+            # Descargamos documentos
+            fooExpediente.downloadDocs("/var/www/db/SCJN/expedientes/docs/")
+            # Guardamos información del expediente
+            fooExpediente.dump("/var/www/db/SCJN/expedientes/")
+        
+        if lastPage:
+            # Log info
+            config.log_INFO("Esta es la última página de resultados. Fin de loop de recolección")
+        else:
+            # Log info
+            config.log_INFO("Ejecutando js para avanzar a la siguiente página...")
+            # Avanzamos a la siguiente página
+            # Obtenemos JS correspondiente
+            JSpayload = config.myCollections["LexppScrapperConfig/jsBank"].find_one({"name": "nextPage"})
+            if JSpayload is None:
+                error_msg = "El JS no está registrado!"
+                config.log_CRITICAL(error_msg)
+                raise ValueError(error_msg)
+            # Ejecutamos payload
+            scrapper.webdriver.execute_script(JSpayload)
+
             
 # Si el usuario quiere descargar por tipoAsunto
 def getByAsuntoID(asuntoID, headlessOption, pageOption, LexppConfig):
