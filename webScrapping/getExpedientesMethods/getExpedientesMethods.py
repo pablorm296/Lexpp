@@ -63,13 +63,76 @@ class Expediente:
     def downloadDocs(self, path):
         # Log info
         self.config.log_INFO("Descargando documentos...")
-        pass
+        
+        # Descargamos engroses
+        engroseUrl = self.Schema.get("engroseUrl", None)
+        if engroseUrl is not None:
+            # Obtenemos extensión del archivo
+            extension = engroseUrl.split(".")[-1]
+            # Enviamos la solicitud
+            engroseResponse = requests.get(engroseUrl, allow_redirects = True)
+            # Obtenemos el encabezado de la respuesta
+            engroseResponseHeaders = engroseResponse.headers
+            # Verificamos el código de respuesta
+            if (engroseResponse.status_code >= 400):
+                warning_msg = "El servidor respondió con un error ({0}) al intentar descar un archivo de {1}".format(engroseResponse.status_code, engroseUrl)
+                self.config.log_WARNING(warning_msg)
+            # Verificamos el tipo del contenido
+            engroseResponseContentType = engroseResponseHeaders.get("content-type", None)
+            if 'text' in engroseResponseContentType.lower() or 'html' in engroseResponseContentType.lower():
+                warning_msg = "El servidor respondió con un tipo de archivo inválido: {0}".format(engroseResponseContentType)
+                self.config.log_WARNING(warning_msg)
+            elif engroseResponseContentType is None:
+                warning_msg = "Ocurrió un error al intentar leer la respuesta del servidor (conten-type is None)"
+                self.config.log_WARNING(warning_msg)
+            else:
+                # Definir archivo objetivo
+                targetPath = "{0}{1}_engrose.{2}".format(path, self.LexppId_Expedientes, extension)
+                #Guardamos el archivo
+                with open(targetPath, "wb") as targetFile:
+                    targetFile.write(engroseResponse.content)
+        else:
+            warning_msg = "El expediente {0} no tiene un documento de engrose".format(self.idAsunto)
+            self.config.log_WARNING(warning_msg)
+
+        # Descargar votos especiales
+        votosEspecialesUrl = self.Schema.get("votosEspecialesUrl", None)
+        if votosEspecialesUrl is not None and isinstance(votosEspecialesUrl, list):
+            for i in range(len(votosEspecialesUrl)):
+                votoEspecial = votosEspecialesUrl[i]
+                # Obtenemos extensión del archivo
+                extension = votoEspecial.split(".")[-1]
+                # Enviamos la solicitud
+                votoEspecialResponse = requests.get(votoEspecial, allow_redirects = True)
+                # Obtenemos el encabezado de la respuesta
+                votoEspecialResponseHeaders = votoEspecialResponse.headers
+                # Verificamos el código de respuesta
+                if (votoEspecialResponse.status_code >= 400):
+                    warning_msg = "El servidor respondió con un error ({0}) al intentar descar un archivo de {1}".format(engroseResponse.status_code, engroseUrl)
+                    self.config.log_WARNING(warning_msg)
+                # Verificamos el tipo del contenido
+                votoEspecialResponseContentType = votoEspecialResponseHeaders.get("content-type", None)
+                if 'text' in votoEspecialResponseContentType.lower() or 'html' in votoEspecialResponseContentType.lower():
+                    warning_msg = "El servidor respondió con un tipo de archivo inválido: {0}".format(engroseResponseContentType)
+                    self.config.log_WARNING(warning_msg)
+                elif votoEspecialResponseContentType is None:
+                    warning_msg = "Ocurrió un error al intentar leer la respuesta del servidor (conten-type is None)"
+                    self.config.log_WARNING(warning_msg)
+                else:
+                    # Definir archivo objetivo
+                    targetPath = "{0}{1}_voto_{2}.{3}".format(path, self.LexppId_Expedientes, i, extension)
+                    #Guardamos el archivo
+                    with open(targetPath, "wb") as targetFile:
+                        targetFile.write(engroseResponse.content)
+        else:
+            warning_msg = "El expediente {0} no tiene votos especiales".format(self.idAsunto)
+            self.config.log_WARNING(warning_msg)
 
     def dump(self, path):
         # Log info
         self.config.log_INFO("Escribiendo información y contenido del expediente en disco...")
         # Definir archivo objetivo
-        targetPath = "{0}{1}.json".format(path, self.LexppId_Expedientes)
+        targetPath = "{0}{1}_dumped.json".format(path, self.LexppId_Expedientes)
         # Escribir contenidos
         with open(targetPath, "w") as targetFile:
             json.dump(self.Schema, targetFile)
@@ -246,14 +309,14 @@ class Expediente:
                 self.Schema["ministroVotosEspecialesId"] = list()
                 self.Schema["tipoVotosEspeciales"] = list()
                 self.Schema["tipoVotosEspecialesId"] = list()
-                self.Schema["urlVotosEspeciales"] = list()
+                self.Schema["votosEspecialesUrl"] = list()
                 # Llenamos las listas
                 for i in range(len(self.votos["data"])):
                     self.Schema["ministroVotosEspeciales"].append(self.votos["data"][i]["Ministros"])
                     self.Schema["ministroVotosEspecialesId"].append(self.votos["data"][i]["MinistroFirmaID"])
                     self.Schema["tipoVotosEspeciales"].append(self.votos["data"][i]["TipoVoto"])
                     self.Schema["tipoVotosEspecialesId"].append(self.votos["data"][i]["TipoVotoID"])
-                    self.Schema["urlVotosEspeciales"].append(self.votos["data"][i]["URLInternet"])
+                    self.Schema["votosEspecialesUrl"].append(self.votos["data"][i]["URLInternet"])
 
         return True
 
