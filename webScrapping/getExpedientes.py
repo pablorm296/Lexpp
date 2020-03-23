@@ -22,7 +22,7 @@ def main(arguments):
     # Fecha del día de hoy (para el archivo de log)
     todayDate = datetime.date.today().strftime("%Y-%m-%d")
     # Inicializamos configuración
-    myLexppConfig = LexppConfig(logFile = "./logs/expedientes_{0}.log".format(todayDate), logLevel = log_level, targetClient = 'mongodb://localhost:27017')
+    myLexppConfig = LexppConfig(logFile = "./logs/expedientes_{0}.log".format(todayDate), logLevel = log_level, mode = arguments.modo, targetClient = 'mongodb://localhost:27017')
 
     # Dependiendo del tipo de modo, verificar que el usuario haya ingresado otros argumentos
     myLexppConfig.log_DEBUG("Verificando argumentos...")

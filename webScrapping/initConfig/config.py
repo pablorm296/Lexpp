@@ -4,13 +4,16 @@ import pymongo
 import sys
 
 class LexppConfig:
-    def __init__(self, logFile, logLevel, targetClient, targetDB = None, targetCollection = None):
+    def __init__(self, logFile, logLevel, mode, targetClient, targetDB = None, targetCollection = None):
         
         # Iniciar bitácora
         self.initLog(logFile, logLevel)
 
         # Iniciar base de datos
         self.initMongo(targetClient, targetDB, targetCollection)
+
+        # Gardar el modo en el que inició el script
+        self.scrapperMode = mode
 
     # Función para inicializar la bitácora
     def initLog(self, logFile, logLevel):
