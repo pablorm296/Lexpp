@@ -288,7 +288,7 @@ class Expediente:
 
         # Propiedades que se obtienen del documento resolutivoGeneral
         # Primero verificamos que el contenido del resolutivo no esté vacío
-        if len(self.resolutivoGeneral["data"]) < 1:
+        if len(self.resolutivoGeneral["data"]) > 0:
             self.Schema["ministroResolucion"] = self.resolutivoGeneral["data"][0].get("Ministro", None)
             self.Schema["secretarioResolucionId"] = self.resolutivoGeneral["data"][0].get("SecretarioID", None)
             self.Schema["secretarioResolucion"] = self.resolutivoGeneral["data"][0].get("Secretario", None)
