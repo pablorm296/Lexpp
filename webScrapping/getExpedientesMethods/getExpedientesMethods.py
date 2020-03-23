@@ -56,6 +56,102 @@ class Expediente:
         # Obtenemos campos relevantes del expediente
         # Ver esquema de expedientes lexpp
         self.fillSchema()
+        # Limpiamos los campos del esquema
+        self.sanitizeSchema()
+
+    # Función para descargar los documentos
+    def downloadDocs(self):
+        pass
+
+    # Función para limpiar los campos de interés
+    def sanitizeSchema(self):
+        # Log info
+        self.config.log_INFO("Limpiando campos de interés...")
+
+        # Lista con las propiedades que son nombres propios
+        nombresPropios = [
+            "ministro",
+            "secretarioProyectista",
+            "secretarioAuxiliar",
+            "ministroResolucion",
+            "secretarioResolucion",
+            "ministroVotosEspeciales"
+        ]
+
+        # Lista con las propiedades que son nombres de órganos
+        organos = [
+            "autoridades",
+            "autoridadesContendientes",
+            "promoventes"
+            "organoOrigen"
+        ]
+
+        # Lista con las propiedades que son fechas
+        fechas = [
+            "fechaSesion",
+            "fechaResolucionEngrose",
+            "fechaRecepcion",
+            "fechaTurnoMinistro",
+            "fechaResolucion"
+        ]
+
+        # Iteramos por cada uno de los elementos en el esquema
+        for key, value in self.Schema.items():
+            # Si el valor es None, podemos saltarlo
+            if value is None:
+                continue
+            # Si el valor es un string
+            if isinstance(value, str):
+                # Eliminar espacios en blanco al inicio y al final
+                value = value.strip()
+                # Eliminar apóstrofes
+                value = re.sub(r"\'", "", value)
+                # Convertimos en None las strings vacías
+                if value == "": 
+                    value = None
+                    # Actualizamos y pasamos al siguiente elemento
+                    self.Schema[key] = value
+                    continue
+                # Si no es una fecha
+                if key not in fechas:
+                    value = value.capitalize()
+                # Si es un nombre propio
+                if key in nombresPropios:
+                    # Mayúsculas en la primera letra de cada palabra
+                    value = value.title()
+                    # Eliminar cosas que no son ni espacios ni letras
+                    value = re.sub(r"[\W\d](?<!\s)", "", value)
+                # Si es una fecha, intentar convertirla
+                if key in fechas:
+                    # Log info
+                    self.config.log_INFO("Procesando fecha en {0}: {1} => {2}".format(self.idAsunto, key, value))
+                    # Intentar convertirla de unix a humano
+                    fooEpoch = re.search(r"Date\((-?\d+)\)", value, flags = re.I)
+                    # Si es válido
+                    if fooEpoch:
+                        fooEpoch = fooEpoch.groups()[0]
+                        fooEpoch = int(fooEpoch)/1000
+                        fooEpoch = datetime.datetime.fromtimestamp(fooEpoch).isoformat()
+                        value = fooEpoch
+                    
+                    # Intentar convertir formato de fecha estandar
+                    fooTime = re.search(r"(\d+/\d+/\d+)", value, flags = re.I)
+                    # Si es válido
+                    if fooTime:
+                        fooTime = fooTime.groups()[0]
+                        fooTime = datetime.datetime.strptime(fooTime, "%d/%m/%Y").isoformat()
+                        value = fooTime
+            # Si es una lista
+            if isinstance(value, list) and key in nombresPropios:
+                for i in range(len(value)):
+                    fooValue = value[i]
+                    # Mayúsculas en la primera letra de cada palabra
+                    fooValue = fooValue.title()
+                    # Eliminar cosas que no son ni espacios ni letras
+                    fooValue = re.sub(r"[\W\d](?<!\s)", "", value)
+                    value[i] = fooValue
+
+        return True
 
     # Llena todos los campos de interés del expediente
     def fillSchema(self):
