@@ -25,15 +25,11 @@ fi
 registeredDir=$targetDir"registered/"
 
 # Create folder
-mkdir -p "$targetDir"
+mkdir -p "$registeredDir"
 
-# Define a function that process each file
-importDoc() {
-    echo "$1"
-}
-
-# Export function
-export -f importDoc
-
-#Parallel
-parallel importDoc ::: "$targetDir*.json"
+# Define a loop that process each file
+N=4
+for filename in "$targetDir"*.json; do
+    echo "$filename"
+    (( ++count % N == 0)) && wait
+done
