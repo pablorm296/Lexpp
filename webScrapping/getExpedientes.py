@@ -4,10 +4,6 @@ import getExpedientesMethods.getExpedientesMethods as getExpedientes
 import argparse
 import logging
 import datetime
-import requests
-import pymongo
-import re
-import sys
 
 def main(arguments):
 
