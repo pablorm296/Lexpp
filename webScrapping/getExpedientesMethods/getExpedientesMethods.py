@@ -772,7 +772,9 @@ def getByAsuntoID(asuntoID, headlessOption, pageOption, LexppConfig):
             error_msg = "El JS no está registrado!"
             LexppConfig.log_CRITICAL(error_msg)
             raise ValueError(error_msg)
-        c.format(pageOption)
+        # Configuramos payload
+        JSpayload = JSpayload["payload"].format(pageOption)
+
         # Ejecutamos payload
         myScrapper.webdriver.execute_script(JSpayload)
 
