@@ -36,4 +36,4 @@ importDoc() {
 export -f importDoc
 
 #Parallel
-parallel importDoc ::: "$targetDir"
+parallel importDoc ::: "$targetDir*.json"
