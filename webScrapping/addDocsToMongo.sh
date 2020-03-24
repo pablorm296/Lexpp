@@ -14,7 +14,7 @@ echo "Target directory: $1"
 targetDir=$1
 
 # Get last character of target dir
-lastChar="${targetDir: -1}"
+lastChar="${targetDir: -1}"pñLexppScrapperConfig
 
 # If last char equals "/" then leave targetDir as is, else, append slash
 if [ "$lastChar" != "/" ]; then
@@ -27,9 +27,13 @@ registeredDir=$targetDir"registered/"
 # Create folder
 mkdir -p "$registeredDir"
 
-# Define a loop that process each file
+# Define a for loop that process each file
 N=4
-for filename in "$targetDir"*.json; do
-    echo "$filename"
+for fileName in "$targetDir"*.json; do
+    echo "Procesando '$fileName'..."
+    echo "  > Agregando a MongoDB"
+    mongoimport --db LexppLibrary_SCJN --collection expedientes --file="$fileName"
+    echo "  > Moviendo a carpeta de archivos registrados..."
+    mv "$fileName" "$registeredDir"
     (( ++count % N == 0)) && wait
 done
