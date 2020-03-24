@@ -17,7 +17,7 @@ targetDir=$1
 lastChar="${targetDir: -1}"
 
 # If last char equals "/" then leave targetDir as is, else, append slash
-if ["$lastChar" -ne "/"]; then
+if [ "$lastChar" -ne "/" ]; then
     targetDir=$targetDir"/"
 fi
 
