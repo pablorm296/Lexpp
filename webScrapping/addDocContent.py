@@ -49,7 +49,7 @@ def main(arguments):
     docExtension = targetFile.split("_")[1].split(".")[1]
 
     # Log info
-    logging.debug("ID: {0} | Type: {2} | Extension {2}")
+    logging.debug("ID: {0} | Type: {2} | Extension {3}".format(LexppId_Library, docType, docExtension))
 
 
 if __name__ == "__main__":
