@@ -3,6 +3,7 @@ import logging
 import datetime
 import pymongo
 from tika import parser
+from bs4 import BeautifulSoup
 import os
 
 # Main routine
@@ -65,7 +66,17 @@ def main(arguments):
     doc["rawMeta"] = fileData["metadata"]
     doc["rawContent"] = fileData["content"]
 
-    # Divide content in parragraphs
+    # Init empty content
+    doc["content"] = list()
+
+    # Parse content using bs
+    parsedContent = BeautifulSoup(doc["rawContent"], 'lxml')
+
+    # Divide paragraphs
+    for p in parsedContent.find_all('p'):
+        doc["content"].append(p.text.encode("utf-8"))
+
+    logging.debug(doc)
 
 if __name__ == "__main__":
     # Init logging
