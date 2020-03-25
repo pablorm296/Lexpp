@@ -36,7 +36,7 @@ N=4
 for fileName in "$targetDir"*; do
     echo "Procesando '$fileName'..."
     echo "  > Agregando a MongoDB"
-    python3 webScrapping/addDocContent.py -f "$fileName" --library "$targetLib" --collection "$targetColl"
+    python3 /var/www/system/webScrapping/addDocContent.py -f "$fileName" --library "$targetLib" --collection "$targetColl"
     echo "  > Moviendo a carpeta de archivos registrados..."
 
 done
