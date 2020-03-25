@@ -11,7 +11,7 @@ echo "Working directory: $0"
 echo "Target directory: $1"
 
 # Rename parameter
-targetDir=$1
+targetDir="$1"
 
 # Get last character of target dir
 lastChar="${targetDir: -1}"pñLexppScrapperConfig
