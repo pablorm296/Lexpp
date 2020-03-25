@@ -59,7 +59,6 @@ if __name__ == "__main__":
     main_parser.add_argument("--collection", type=str,
                             help="Colección de la biblioteca en el que se encuentra la metadescripción del documento al que corresponde el archivo.", required=True)
 
-
     # Obtener argumentos del ususario y parsearlos
     arguments = main_parser.parse_args()
 
