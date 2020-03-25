@@ -74,7 +74,7 @@ def main(arguments):
 
     # Divide paragraphs
     for p in parsedContent.find_all('p'):
-        doc["content"].append(str(p).encode("utf-8"))
+        doc["content"].append(str(p))
 
     logging.debug(doc)
 
