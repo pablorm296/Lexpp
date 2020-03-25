@@ -1,4 +1,3 @@
-from LexppScrapper.LexppScrapper import LexppScrapper
 from initConfig.config import LexppConfig
 import getExpedientesMethods.getExpedientesMethods as getExpedientes
 import argparse
