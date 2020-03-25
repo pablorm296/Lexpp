@@ -3,6 +3,7 @@ import logging
 import datetime
 import pymongo
 import tika
+import sys
 import os
 
 def main(arguments):
@@ -12,11 +13,15 @@ def main(arguments):
     targetCollection = arguments.collection
 
     # Logging info
-    logging.info("Procesando {0}".format(targetFile))
+    logging.debug("Procesando {0}".format(targetFile))
+
+    # Verificar que el archivo no sea un directorio
+    if os.path.isdir(targetFile):
+        raise FileNotFoundError("El archivo {0} es un directorio!".format(targetFile))
     
     # Verificar que el archivo exista
     if not os.path.isfile(targetFile):
-        raise FileNotFoundError("El archivo {0} no existe".format(targetFile))
+        raise FileNotFoundError("El archivo {0} no existe!".format(targetFile))
 
     # Creamos un cliente de pymongo
     mongoClient = pymongo.MongoClient("mongodb://localhost:27017")
@@ -24,7 +29,7 @@ def main(arguments):
     # Verificar que la librería y la coleccipón existan
     dbList = mongoClient.list_database_names()
     if targetLibrary not in dbList:
-        raise IOError("La biblioteca {0} no existe".format(targetLibrary))
+        raise IOError("La biblioteca {0} no existe!".format(targetLibrary))
     
     # Conectar a la base 
     mongoDB = mongoClient[targetLibrary]
@@ -32,19 +37,24 @@ def main(arguments):
     # Verificar que la colección existe
     collectionList = mongoDB.collection_names()
     if targetCollection not in collectionList:
-        raise IOError("La colección {0} no existe".format(targetCollection))
+        raise IOError("La colección {0} no existe!".format(targetCollection))
 
     # Conectar a la colección
     mongoCollection = mongoDB[targetCollection]
 
-    # Tika test
-    logging.info("Tika test")
+    # Extraer id del documento
+    # path/to/file/XXXXX_tipo.extension <- formato del nombre
+    LexppId_Library = targetFile("_")[0].split("/")[-1]
+    docType = targetFile.split("_")[1].split(".")[0]
+    docExtension = targetFile.split("_")[1].split(".")[1]
 
+    # Log info
+    logging.debug("ID: {0} | Type: {2} | Extension {2}")
 
 
 if __name__ == "__main__":
     # Init logging
-    logging.basicConfig(level = logging.INFO)
+    logging.basicConfig(level = logging.DEBUG)
 
     # Inicializar parser para los argumentos
     main_parser = argparse.ArgumentParser(
