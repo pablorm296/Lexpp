@@ -5,6 +5,7 @@ import pymongo
 from tika import parser
 import os
 
+# Main routine
 def main(arguments):
     # Extraer argumentos
     targetFile = arguments.file
@@ -50,11 +51,21 @@ def main(arguments):
     # Log info
     logging.debug("ID: {0} | Type: {1} | Extension: {2}".format(LexppId_Library, docType, docExtension))
 
+    # Crear objeto con el documento
+    doc = dict()
+
     # Parse the file data
-    fileData = parser.from_file(targetFile)
+    fileData = parser.from_file(targetFile, xmlContent = True)
 
     # Log info
     logging.debug("Informació del archivo: \n{0}\nContenido del archivo:\n{1}".format(fileData["metadata"], fileData["content"]))
+
+    # Save content and metadata
+    doc["type"] = docType
+    doc["rawMeta"] = fileData["metadata"]
+    doc["rawContent"] = fileData["content"]
+
+    # Divide content in parragraphs
 
 if __name__ == "__main__":
     # Init logging
