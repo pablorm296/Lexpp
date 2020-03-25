@@ -2,8 +2,7 @@ import argparse
 import logging
 import datetime
 import pymongo
-import tika
-import sys
+from tika import parser
 import os
 
 def main(arguments):
@@ -49,8 +48,13 @@ def main(arguments):
     docExtension = targetFile.split("_")[1].split(".")[1]
 
     # Log info
-    logging.debug("ID: {0} | Type: {1} | Extension {2}".format(LexppId_Library, docType, docExtension))
+    logging.debug("ID: {0} | Type: {1} | Extension: {2}".format(LexppId_Library, docType, docExtension))
 
+    # Parse the file data
+    fileData = parser.from_file(targetFile)
+
+    # Log info
+    logging.debug("Contenido del archivo:\n{0}".format(fileData["content"]))
 
 if __name__ == "__main__":
     # Init logging
