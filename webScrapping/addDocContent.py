@@ -44,7 +44,7 @@ def main(arguments):
 
     # Extraer id del documento
     # path/to/file/XXXXX_tipo.extension <- formato del nombre
-    LexppId_Library = targetFile("_")[0].split("/")[-1]
+    LexppId_Library = targetFile.split("_")[0].split("/")[-1]
     docType = targetFile.split("_")[1].split(".")[0]
     docExtension = targetFile.split("_")[1].split(".")[1]
 
