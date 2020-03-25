@@ -43,6 +43,9 @@ def main(arguments):
 
 
 if __name__ == "__main__":
+    # Init logging
+    logging.basicConfig(level = logging.INFO)
+
     # Inicializar parser para los argumentos
     main_parser = argparse.ArgumentParser(
         description="Un script para extraer contenido de un archivo y agregarlo a la metadescripción del documento en la base de datos de MongoDB")
