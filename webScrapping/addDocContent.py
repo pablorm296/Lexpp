@@ -54,7 +54,7 @@ def main(arguments):
     fileData = parser.from_file(targetFile)
 
     # Log info
-    logging.debug("Contenido del archivo:\n{0}".format(fileData["content"]))
+    logging.debug("Informació del archivo: \n{0}\nContenido del archivo:\n{1}".format(fileData["metadata"], fileData["content"]))
 
 if __name__ == "__main__":
     # Init logging
