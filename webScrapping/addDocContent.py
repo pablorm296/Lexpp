@@ -56,15 +56,14 @@ def main(arguments):
     doc = dict()
 
     # Parse the file data
-    fileData = parser.from_file(targetFile, xmlContent = True)
-
-    # Log info
-    logging.debug("Informació del archivo: \n{0}\nContenido del archivo:\n{1}".format(fileData["metadata"], fileData["content"]))
+    fileDataXML = parser.from_file(targetFile, xmlContent = True)
+    fileData = parser.from_file(targetFile)
 
     # Save content and metadata
     doc["type"] = docType
-    doc["rawMeta"] = fileData["metadata"]
-    doc["rawContent"] = fileData["content"]
+    doc["rawMeta"] = fileDataXML["metadata"]
+    doc["rawContent"] = fileDataXML["content"]
+    doc["rawContentPlain"] = fileData["content"]
 
     # Init empty content
     doc["content"] = list()
@@ -79,7 +78,15 @@ def main(arguments):
         paragraph["attributes"] = p.attrs
         doc["content"].append(paragraph)
 
-    logging.debug(doc)
+    # Add to document in db
+    mongoCollection.update(
+        {"Lexpp_expedientesId": LexppId_Library},
+        {
+            "$push": {
+                "documents": doc
+            } 
+        }
+    )
 
 if __name__ == "__main__":
     # Init logging
