@@ -11,9 +11,12 @@ db = client["LexppLibrary_SCJN"]
 collection = db["expedientes"]
 
 # Hacer un muestreo aleatorio
-muestra = collection.aggregate([
+comando = collection.aggregate([
     {"$sample": {"size": 3}}
 ])
+
+# Obtener resultados
+muestra = list(comando)
 
 # Guardar la muestra
 with open("muestra_documentos.json", "w") as targetFile:
