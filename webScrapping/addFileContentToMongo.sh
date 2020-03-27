@@ -38,5 +38,6 @@ for fileName in "$targetDir"*; do
     echo "  > Agregando a MongoDB"
     python3 /var/www/system/webScrapping/addDocContent.py -f "$fileName" --library "$targetLib" --collection "$targetColl"
     echo "  > Moviendo a carpeta de archivos registrados..."
-
+    mv "$fileName" "$registeredDir"
+    (( ++count % N == 0)) && wait
 done
