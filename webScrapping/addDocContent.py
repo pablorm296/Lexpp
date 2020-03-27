@@ -90,7 +90,7 @@ def main(arguments):
 
 if __name__ == "__main__":
     # Init logging
-    logging.basicConfig(level = logging.DEBUG)
+    logging.basicConfig(level = logging.INFO)
 
     # Inicializar parser para los argumentos
     main_parser = argparse.ArgumentParser(
