@@ -1,10 +1,6 @@
 import pymongo
 import json
 
-# Custom JSONEncoder (objectid)
-class CustomJSONEncoder(JSONEncoder):
-    def default(self, obj): return json_util.default(obj)
-
 # Abrir conexión con el cliente
 client = pymongo.MongoClient("mongodb://localhost:27017")
 
@@ -16,6 +12,7 @@ collection = db["expedientes"]
 
 # Hacer un muestreo aleatorio
 comando = collection.aggregate([
+    {"$project": {"_id": 0}},
     {"$sample": {"size": 3}}
 ])
 
@@ -24,4 +21,4 @@ muestra = list(comando)
 
 # Guardar la muestra
 with open("muestra_documentos.json", "w") as targetFile:
-    json.dump(muestra, targetFile, JSONEncoder = CustomJSONEncoder)
+    json.dump(muestra, targetFile)
