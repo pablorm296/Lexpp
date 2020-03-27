@@ -1,16 +1,16 @@
 # Untitled array in Expediente (Suprema Corte de Justicia de la Nación) Schema
 
 ```txt
-http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/votosEspecialesUrl
+http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/archivoAdjunto/properties/content
 ```
 
-URL(s) de los votos especiales registrados en el expediente
+Contenido procesado del archivo. Cada elemento en el array es un párrado del archivo
 
 
 | Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                          |
 | :------------------ | ---------- | -------------- | ----------------------- | :---------------- | --------------------- | ------------------- | ----------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [expediente.schema.json\*](../../out/expediente.schema.json "open original schema") |
 
-## votosEspecialesUrl Type
+## content Type
 
-`array`
+`object[]` ([Details](expediente-definitions-parrafo.md))

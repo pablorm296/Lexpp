@@ -9,11 +9,154 @@ Sentencias y Datos de Expedientes de la Suprema Corte de Justicia de la Nación
 
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                        |
 | :------------------ | ---------- | -------------- | ------------ | :---------------- | --------------------- | ------------------- | --------------------------------------------------------------------------------- |
-| Can be instantiated | No         | Unknown status | No           | Forbidden         | Allowed               | none                | [expediente.schema.json](../../out/expediente.schema.json "open original schema") |
+| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Allowed               | none                | [expediente.schema.json](../../out/expediente.schema.json "open original schema") |
 
 ## Expediente (Suprema Corte de Justicia de la Nación) Type
 
 `object` ([Expediente (Suprema Corte de Justicia de la Nación)](expediente.md))
+
+# Expediente (Suprema Corte de Justicia de la Nación) Definitions
+
+## Definitions group archivoAdjunto
+
+Reference this group by using
+
+```json
+{"$ref":"http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/archivoAdjunto"}
+```
+
+| Property                            | Type     | Required | Nullable       | Defined by                                                                                                                                                                                                                                       |
+| :---------------------------------- | -------- | -------- | -------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [type](#type)                       | `string` | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-archivoadjunto-properties-type.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/archivoAdjunto/properties/type")                       |
+| [rawMeta](#rawMeta)                 | `string` | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-archivoadjunto-properties-rawmeta.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/archivoAdjunto/properties/rawMeta")                 |
+| [rawContent](#rawContent)           | `string` | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-archivoadjunto-properties-rawcontent.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/archivoAdjunto/properties/rawContent")           |
+| [rawContentPlain](#rawContentPlain) | `string` | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-archivoadjunto-properties-rawcontentplain.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/archivoAdjunto/properties/rawContentPlain") |
+| [content](#content)                 | `array`  | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-archivoadjunto-properties-content.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/archivoAdjunto/properties/content")                 |
+
+### type
+
+Tipo de archivo adjunto (engrose o votos)
+
+
+`type`
+
+-   is optional
+-   Type: `string`
+-   cannot be null
+-   defined in: [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-archivoadjunto-properties-type.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/archivoAdjunto/properties/type")
+
+#### type Type
+
+`string`
+
+### rawMeta
+
+Metadata sin procesar extraída por Apache Tika
+
+
+`rawMeta`
+
+-   is optional
+-   Type: `string`
+-   cannot be null
+-   defined in: [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-archivoadjunto-properties-rawmeta.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/archivoAdjunto/properties/rawMeta")
+
+#### rawMeta Type
+
+`string`
+
+### rawContent
+
+Contenido del archivo extraído por Apache Tika en formato XHTML
+
+
+`rawContent`
+
+-   is optional
+-   Type: `string`
+-   cannot be null
+-   defined in: [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-archivoadjunto-properties-rawcontent.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/archivoAdjunto/properties/rawContent")
+
+#### rawContent Type
+
+`string`
+
+### rawContentPlain
+
+Contenido del archivo extraído por Apache Tika en texto plano (sin formato alguno)
+
+
+`rawContentPlain`
+
+-   is optional
+-   Type: `string`
+-   cannot be null
+-   defined in: [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-archivoadjunto-properties-rawcontentplain.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/archivoAdjunto/properties/rawContentPlain")
+
+#### rawContentPlain Type
+
+`string`
+
+### content
+
+Contenido procesado del archivo. Cada elemento en el array es un párrado del archivo
+
+
+`content`
+
+-   is optional
+-   Type: `object[]` ([Details](expediente-definitions-parrafo.md))
+-   cannot be null
+-   defined in: [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-archivoadjunto-properties-content.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/archivoAdjunto/properties/content")
+
+#### content Type
+
+`object[]` ([Details](expediente-definitions-parrafo.md))
+
+## Definitions group parrafo
+
+Reference this group by using
+
+```json
+{"$ref":"http://lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/parrafo"}
+```
+
+| Property                  | Type          | Required | Nullable       | Defined by                                                                                                                                                                                                               |
+| :------------------------ | ------------- | -------- | -------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [content](#content)       | `string`      | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-parrafo-properties-content.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/parrafo/properties/content")       |
+| [attributes](#attributes) | Not specified | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-parrafo-properties-attributes.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/parrafo/properties/attributes") |
+
+### content
+
+Contenido del párrafo en formato XHTML
+
+
+`content`
+
+-   is optional
+-   Type: `string`
+-   cannot be null
+-   defined in: [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-parrafo-properties-content.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/parrafo/properties/content")
+
+#### content Type
+
+`string`
+
+### attributes
+
+Atributos asociados al párrafo en formato XHTML
+
+
+`attributes`
+
+-   is optional
+-   Type: unknown
+-   cannot be null
+-   defined in: [Expediente (Suprema Corte de Justicia de la Nación)](expediente-definitions-parrafo-properties-attributes.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/definitions/parrafo/properties/attributes")
+
+#### attributes Type
+
+unknown
 
 # Expediente (Suprema Corte de Justicia de la Nación) Properties
 
@@ -46,7 +189,6 @@ Sentencias y Datos de Expedientes de la Suprema Corte de Justicia de la Nación
 | [resumenResolucion](#resumenResolucion)                 | `string`      | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-resumenresolucion.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/resumenResolucion")                 |
 | [organoOrigen](#organoOrigen)                           | `string`      | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-organoorigen.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/organoOrigen")                           |
 | [engroseUrl](#engroseUrl)                               | `string`      | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-engroseurl.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/engroseUrl")                               |
-| [votosEspecialesUrl](#votosEspecialesUrl)               | `string`      | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-votosespecialesurl.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/votosEspecialesUrl")               |
 | [ministroResolucionId](#ministroResolucionId)           | `integer`     | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-ministroresolucionid.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/ministroResolucionId")           |
 | [ministroResolucion](#ministroResolucion)               | `string`      | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-ministroresolucion.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/ministroResolucion")               |
 | [secretarioResolucionId](#secretarioResolucionId)       | `integer`     | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-secretarioresolucionid.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/secretarioResolucionId")       |
@@ -62,8 +204,9 @@ Sentencias y Datos de Expedientes de la Suprema Corte de Justicia de la Nación
 | [ministroVotosEspecialesId](#ministroVotosEspecialesId) | `array`       | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-ministrovotosespecialesid.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/ministroVotosEspecialesId") |
 | [tipoVotosEspeciales](#tipoVotosEspeciales)             | `array`       | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-tipovotosespeciales.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/tipoVotosEspeciales")             |
 | [tipoVotosEspecialesId](#tipoVotosEspecialesId)         | `array`       | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-tipovotosespecialesid.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/tipoVotosEspecialesId")         |
-| [urlVotosEspeciales](#urlVotosEspeciales)               | `array`       | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-urlvotosespeciales.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/urlVotosEspeciales")               |
+| [votosEspecialesUrl](#votosEspecialesUrl)               | `array`       | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-votosespecialesurl.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/votosEspecialesUrl")               |
 | [rawContent](#rawContent)                               | `object`      | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-rawcontent.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/rawContent")                               |
+| [documents](#documents)                                 | `array`       | Optional | cannot be null | [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-documents.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/documents")                                 |
 
 ## LexppId
 
@@ -497,22 +640,6 @@ URL de la versión pública del engrose generado por la resolución del expedien
 
 `string`
 
-## votosEspecialesUrl
-
-URL(s) de los votos especiales registrados en el expediente
-
-
-`votosEspecialesUrl`
-
--   is optional
--   Type: `string`
--   cannot be null
--   defined in: [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-votosespecialesurl.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/votosEspecialesUrl")
-
-### votosEspecialesUrl Type
-
-`string`
-
 ## ministroResolucionId
 
 ID del Ministro que llevó la resolución del expediente
@@ -753,19 +880,19 @@ unknown
 
 `array`
 
-## urlVotosEspeciales
+## votosEspecialesUrl
+
+URL(s) de los votos especiales registrados en el expediente
 
 
-
-
-`urlVotosEspeciales`
+`votosEspecialesUrl`
 
 -   is optional
 -   Type: `array`
 -   cannot be null
--   defined in: [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-urlvotosespeciales.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/urlVotosEspeciales")
+-   defined in: [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-votosespecialesurl.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/votosEspecialesUrl")
 
-### urlVotosEspeciales Type
+### votosEspecialesUrl Type
 
 `array`
 
@@ -784,3 +911,19 @@ Contenido del expediente (tal cual se recibió del servidor de la SCJN)
 ### rawContent Type
 
 `object` ([Details](expediente-properties-rawcontent.md))
+
+## documents
+
+Lista de archivos (engroses y votos particulares) que venían adjuntos al expediente.
+
+
+`documents`
+
+-   is optional
+-   Type: `object[]` ([Details](expediente-definitions-archivoadjunto.md))
+-   cannot be null
+-   defined in: [Expediente (Suprema Corte de Justicia de la Nación)](expediente-properties-documents.md "http&#x3A;//lexpp.com/lexLibrary/scjn/expediente.schema.json#/properties/documents")
+
+### documents Type
+
+`object[]` ([Details](expediente-definitions-archivoadjunto.md))

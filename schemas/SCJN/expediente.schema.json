@@ -90,7 +90,7 @@
         "tema": {
             "type": "string",
             "description": "Tema(s) registrados por el catálogo de la SCJN"
-        }, 
+        },
         "temaLexpp": {
             "type": "array",
             "description": "Tema(s) registrados por el sistema de Lex++"
@@ -98,7 +98,6 @@
         "temaFondo": {
             "type": "string",
             "description": "Tema de fondo registrado por el catálogo de la SCJN"
-
         },
         "resumenResolucion": {
             "type": "string",
@@ -128,21 +127,11 @@
             "type": "string",
             "description": "Secretario que llevó la resolución del expediente"
         },
-        "resolucionId": {
-
-        },
-        "pertenenciaResolucionId": {
-
-        },
-        "pertenenciaResolucion": {
-
-        },
-        "fechaSesion": {
-
-        },
-        "fechaResolucionEngrose": {
-
-        },
+        "resolucionId": {},
+        "pertenenciaResolucionId": {},
+        "pertenenciaResolucion": {},
+        "fechaSesion": {},
+        "fechaResolucionEngrose": {},
         "puntosResolutivos": {
             "type": "array"
         },
@@ -168,6 +157,55 @@
         "rawContent": {
             "type": "object",
             "description": "Contenido del expediente (tal cual se recibió del servidor de la SCJN)"
+        },
+        "documents": {
+            "type": "array",
+            "description": "Lista de archivos (engroses y votos particulares) que venían adjuntos al expediente.",
+            "items": {
+                "$ref": "#/definitions/archivoAdjunto"
+            }
+        }
+    },
+    "definitions": {
+        "archivoAdjunto": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Tipo de archivo adjunto (engrose o votos)"
+                },
+                "rawMeta": {
+                    "type": "string",
+                    "description": "Metadata sin procesar extraída por Apache Tika"
+                }, 
+                "rawContent": {
+                    "type": "string",
+                    "description": "Contenido del archivo extraído por Apache Tika en formato XHTML"
+                },
+                "rawContentPlain": {
+                    "type": "string",
+                    "description": "Contenido del archivo extraído por Apache Tika en texto plano (sin formato alguno)"
+                },
+                "content": {
+                    "type": "array",
+                    "description": "Contenido procesado del archivo. Cada elemento en el array es un párrado del archivo",
+                    "items": {
+                        "$ref": "#/definitions/parrafo"
+                    }
+                }
+            }
+        },
+        "parrafo": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string",
+                    "description": "Contenido del párrafo en formato XHTML"
+                },
+                "attributes": {
+                    "description": "Atributos asociados al párrafo en formato XHTML"
+                }
+            }
         }
     }
 }
