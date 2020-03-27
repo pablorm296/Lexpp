@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as WaitConditions
-from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException, ElementNotVisibleException
+from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException, ElementNotVisibleException, TimeoutException
 import time
 import logging
 
@@ -160,7 +160,7 @@ class LexppScrapper:
             targetElem = WebDriverWait(self.webdriver, timeout).until(
                 untilCondition
             )
-        except TimeoutError as e:
+        except TimeoutException as e:
             raise ValueError("Exception while waiting for element: timeout: {0}".format(e))
         else:
             logging.info("Wait condition fullfilled: {0}".format(targetElem.rect))
