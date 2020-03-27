@@ -14,7 +14,7 @@ collection = db["expedientes"]
 comando = collection.aggregate([
     {"$match": {"documents": {"$ne": None}}},
     {"$project": {"_id": 0}},
-    {"$sample": {"size": 3}}
+    {"$sample": {"size": 100}}
 ])
 
 # Obtener resultados
