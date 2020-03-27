@@ -12,7 +12,7 @@ collection = db["expedientes"]
 
 # Hacer un muestreo aleatorio
 comando = collection.aggregate([
-    {"$match": {"$ne": {"documentos": None}}},
+    {"$match": {"documentos": {"$ne": None}}},
     {"$project": {"_id": 0}},
     {"$sample": {"size": 3}}
 ])
