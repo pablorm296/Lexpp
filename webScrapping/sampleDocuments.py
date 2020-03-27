@@ -1,6 +1,10 @@
 import pymongo
 import json
 
+# Custom JSONEncoder (objectid)
+class CustomJSONEncoder(JSONEncoder):
+    def default(self, obj): return json_util.default(obj)
+
 # Abrir conexión con el cliente
 client = pymongo.MongoClient("mongodb://localhost:27017")
 
@@ -20,4 +24,4 @@ muestra = list(comando)
 
 # Guardar la muestra
 with open("muestra_documentos.json", "w") as targetFile:
-    json.dump(muestra, targetFile)
+    json.dump(muestra, targetFile, JSONEncoder = CustomJSONEncoder)
