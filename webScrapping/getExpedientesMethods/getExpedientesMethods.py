@@ -657,7 +657,7 @@ def scanLoop(scrapper: LexppScrapper, config: LexppConfig, pageOption, asuntoID)
     config.log_INFO("Entrando al loop de recolección...")
     while continueState:
         # Verificamos que no haya un loader activo
-        waitForLoader(scrapper, config)
+        waitForLoader(scrapper, config, timeOut = 300)
 
         # Recolectamos información sobre la página actual
         config.log_DEBUG("Buscando número de págin actual de resultados...")
