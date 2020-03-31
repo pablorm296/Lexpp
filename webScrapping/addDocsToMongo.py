@@ -53,7 +53,7 @@ def main(arguments):
     LexppId = targetFileContent["LexppId"]
 
     # Extraer LexppId del expediente (coleccion)
-    LexppId_colection = targetFileContent[LexppIdField]
+    LexppId_collection = targetFileContent[LexppIdField]
 
     # Buscar LexppId en la biblioteca
     matchLexppId = mongoCollection.find_one(
@@ -62,17 +62,23 @@ def main(arguments):
 
     # Buscar LexppId en la biblioteca
     matchLexppCollectionId = mongoCollection.find_one(
-        {LexppIdField: LexppId_colection}
+        {LexppIdField: LexppId_collection}
     )
 
     # Si ninguno de los está
     if matchLexppCollectionId is None and matchLexppId is None:
         logging.debug("El documento no está en la base de datos!")
+        logging.info("Agregando documento...")
+        mongoCollection.insert_one(targetFileContent)
+        logging.info("Documento registrado en la base de datos :)")
+        exit(0)
+    else:
+        raise IOError("El documento ya está registrado en la base de datos!")
    
 
 if __name__ == "__main__":
     # Init logging
-    logging.basicConfig(level = logging.DEBUG)
+    logging.basicConfig(level = logging.DEBUG, format = "  > %(message)s")
 
     # Inicializar parser para los argumentos
     main_parser = argparse.ArgumentParser(
