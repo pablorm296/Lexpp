@@ -32,8 +32,9 @@ N=4
 for fileName in "$targetDir"*.json; do
     echo "Procesando '$fileName'..."
     echo "  > Agregando a MongoDB"
-    mongoimport --db LexppLibrary_SCJN --collection expedientes --file="$fileName"
+    # mongoimport --db LexppLibrary_SCJN --collection expedientes --file="$fileName"
+    python3 /var/www/system/webScrapping/addDocsToMongo.py -f "$fileName" --library "$targetLib" --collection "$targetColl"
     echo "  > Moviendo a carpeta de archivos registrados..."
-    mv "$fileName" "$registeredDir"
+    # mv "$fileName" "$registeredDir"
     (( ++count % N == 0)) && wait
 done
