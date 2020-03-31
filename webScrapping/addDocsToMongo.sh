@@ -9,9 +9,13 @@
 # Some debug info
 echo "Working directory: $0"
 echo "Target directory: $1"
+echo "Target library: $2"
+echo "Target collection": $3
 
 # Rename parameter
 targetDir="$1"
+targetLib="$2"
+targetColl="$3"
 
 # Get last character of target dir
 lastChar="${targetDir: -1}"pñLexppScrapperConfig
