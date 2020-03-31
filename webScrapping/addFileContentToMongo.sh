@@ -36,8 +36,11 @@ N=4
 for fileName in "$targetDir"*; do
     echo "Procesando '$fileName'..."
     echo "  > Agregando a MongoDB"
-    python3 /var/www/system/webScrapping/addDocContent.py -f "$fileName" --library "$targetLib" --collection "$targetColl"
-    echo "  > Moviendo a carpeta de archivos registrados..."
-    mv "$fileName" "$registeredDir"
+    if python3 /var/www/system/webScrapping/addDocContent.py -f "$fileName" --library "$targetLib" --collection "$targetColl"; then
+        echo "  > Moviendo a carpeta de archivos registrados..."
+        mv "$fileName" "$registeredDir"
+    else
+        echo "  > El script terminó con un error"
+    fi
     (( ++count % N == 0)) && wait
 done
