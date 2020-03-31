@@ -64,11 +64,15 @@ def main(arguments):
     matchLexppCollectionId = mongoCollection.find_one(
         {LexppIdField: LexppId_colection}
     )
+
+    # Si ninguno de los está
+    if matchLexppCollectionId is None and matchLexppId is None:
+        logging.debug("El documento no está en la base de datos!")
    
 
 if __name__ == "__main__":
     # Init logging
-    logging.basicConfig(level = logging.INFO)
+    logging.basicConfig(level = logging.DEBUG)
 
     # Inicializar parser para los argumentos
     main_parser = argparse.ArgumentParser(
