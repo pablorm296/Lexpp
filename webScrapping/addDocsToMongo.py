@@ -50,10 +50,10 @@ def main(arguments):
     LexppIdField = "Lexpp_{0}Id".format(targetCollection)
 
     # Extraer LexppId del expediente
-    LexppId = targetFile["LexppId"]
+    LexppId = targetFileContent["LexppId"]
 
     # Extraer LexppId del expediente (coleccion)
-    LexppId_colection = targetFile[LexppIdField]
+    LexppId_colection = targetFileContent[LexppIdField]
 
     # Buscar LexppId en la biblioteca
     matchLexppId = mongoCollection.find_one(
