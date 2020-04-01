@@ -676,7 +676,7 @@ def scanLoop(scrapper: LexppScrapper, config: LexppConfig, pageOption, asuntoID)
             # Verificar que la propiedad aria-label contenga algún de exto de nuestro interés
             ariaLabelMatch = re.match(r"de expediente", ariaLabel, re.IGNORECASE)
             if ariaLabelMatch is None:
-                config.log_INFO("El elemento no es un expediente (el contenido de aria-label no es correcto)!")
+                config.log_INFO("El elemento no es un expediente (el contenido de aria-label no es correcto: {0})!".format(ariaLabel))
                 continue
             # Obtenemos el id de expediente
             idExpediente = linkElement.text
