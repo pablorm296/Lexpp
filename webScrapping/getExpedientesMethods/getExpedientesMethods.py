@@ -35,8 +35,9 @@ class Expediente:
         self.getResolutivoGeneral()
         
         # Si existe resolutivo general, significa que podemos continuar extrayendo los datos
-        foo_resolutivoGeneral = self.getContent(get = 'resolutivoGeneral', warn = True)
-        if foo_resolutivoGeneral.get("data", None) is not None and foo_resolutivoGeneral is not None:
+        foo_resolutivoGeneral = self.Content.get("resolutivoGeneral", None)
+        foo_resolutivoGeneralData = foo_resolutivoGeneral.get("data", None)
+        if foo_resolutivoGeneral is not None and foo_resolutivoGeneralData is not None:
             # Intentamos obtener el id de sesión
             try:
                 self.sesionId = foo_resolutivoGeneral["data"][0].get("SesionID", None)
@@ -329,31 +330,6 @@ class Expediente:
                     self.Schema["votosEspecialesUrl"].append(self.votos["data"][i]["URLInternet"])
 
         return True
-
-    # Obtiene contenido del expediente o sólo una parte
-    def getContent(self, get = "All", warn = True):
-        # Verificamos parámetros
-        if not isinstance(get, str):
-            error_msg = "'get' debe se una string!"
-            self.config.log_CRITICAL(error_msg)
-            raise TypeError(error_msg)
-
-        if get == "All":
-            return self.Content
-        
-        # Intentamos obtener el contenido deseado
-        response = self.Content.get(get, None)
-
-        # Si el contenido no existe o está vacío
-        if response is None and not warn:
-            error_msg = "La propiedad '{0}' no existe en el expediente!".format(get)
-            self.config.log_CRITICAL(error_msg)
-            raise Exception(error_msg)
-        elif response is None and warn:
-            warning_msg = "La propiedad '{0}' no existe en el expediente!".format(get)
-            self.config.log_WARNING(warning_msg)
-
-        return self.Content
 
     # Obtiene detalles del asunto
     def getDetalleAsunto(self):
