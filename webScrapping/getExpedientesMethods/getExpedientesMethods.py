@@ -132,7 +132,7 @@ class Expediente:
                     targetPath = "{0}{1}_voto_{2}.{3}".format(path, self.LexppId_Expedientes, i, extension)
                     #Guardamos el archivo
                     with open(targetPath, "wb") as targetFile:
-                        targetFile.write(engroseResponse.content)
+                        targetFile.write(votoEspecialResponse.content)
         else:
             warning_msg = "El expediente {0} no tiene votos especiales".format(self.idAsunto)
             self.config.log_WARNING(warning_msg)
