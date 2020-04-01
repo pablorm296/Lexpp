@@ -262,29 +262,29 @@ class Expediente:
         self.Schema["expedienteId"] = self.idExpediente
 
         # Propiedades que se obtienen del documento detalleAsunto
-        self.Schema["tipoAsuntoId"] = self.detalleAsunto["data"][0].get("TipoAsuntoID", None)
-        self.Schema["tipoAsunto"] = self.detalleAsunto["data"][0].get("TipoAsunto", None)
-        self.Schema["pertenenecia"] = self.detalleAsunto["data"][0].get("Pertenencia", None)
-        self.Schema["oficioId"] = self.detalleAsunto["data"][0].get("Oficio", None)
-        self.Schema["estadoDelExpediente"] = self.detalleAsunto["data"][0].get("Estado", None)
-        self.Schema["ministroId"] = self.detalleAsunto["data"][0].get("Ministro", None)
+        self.Schema["tipoAsuntoId"] = self.detalleAsunto["data"].get("TipoAsuntoID", None)
+        self.Schema["tipoAsunto"] = self.detalleAsunto["data"].get("TipoAsunto", None)
+        self.Schema["pertenenecia"] = self.detalleAsunto["data"].get("Pertenencia", None)
+        self.Schema["oficioId"] = self.detalleAsunto["data"].get("Oficio", None)
+        self.Schema["estadoDelExpediente"] = self.detalleAsunto["data"].get("Estado", None)
+        self.Schema["ministroId"] = self.detalleAsunto["data"].get("Ministro", None)
         self.Schema["ministro"] = None
-        self.Schema["secretarioProyectista"] = self.detalleAsunto["data"][0].get("SecretarioProyectista", None)
-        self.Schema["secretarioAuxiliar"] = self.detalleAsunto["data"][0].get("SecretarioAuxiliar", None)
-        self.Schema["fechaRecepcion"] = self.detalleAsunto["data"][0].get("FechaRecepcion", None)
-        self.Schema["fechaTurnoMinistro"] = self.detalleAsunto["data"][0].get("FechaTurnoMinistro", None)
-        self.Schema["fechaResolucion"] = self.detalleAsunto["data"][0].get("FechaResolucion", None)
-        self.Schema["actoReclamado"] = self.detalleAsunto["data"][0].get("ActoReclamado", None)
-        self.Schema["autoridades"] = self.detalleAsunto["data"][0].get("Autoridades", None)
-        self.Schema["autoridadesContendientes"] = self.detalleAsunto["data"][0].get("AutoridadesContendientes", None)
-        self.Schema["promoventes"] = self.detalleAsunto["data"][0].get("Promoventes", None)
-        self.Schema["area"] = self.detalleAsunto["data"][0].get("Area", None)
-        self.Schema["tema"] = self.detalleAsunto["data"][0].get("Tema", None)
+        self.Schema["secretarioProyectista"] = self.detalleAsunto["data"].get("SecretarioProyectista", None)
+        self.Schema["secretarioAuxiliar"] = self.detalleAsunto["data"].get("SecretarioAuxiliar", None)
+        self.Schema["fechaRecepcion"] = self.detalleAsunto["data"].get("FechaRecepcion", None)
+        self.Schema["fechaTurnoMinistro"] = self.detalleAsunto["data"].get("FechaTurnoMinistro", None)
+        self.Schema["fechaResolucion"] = self.detalleAsunto["data"].get("FechaResolucion", None)
+        self.Schema["actoReclamado"] = self.detalleAsunto["data"].get("ActoReclamado", None)
+        self.Schema["autoridades"] = self.detalleAsunto["data"].get("Autoridades", None)
+        self.Schema["autoridadesContendientes"] = self.detalleAsunto["data"].get("AutoridadesContendientes", None)
+        self.Schema["promoventes"] = self.detalleAsunto["data"].get("Promoventes", None)
+        self.Schema["area"] = self.detalleAsunto["data"].get("Area", None)
+        self.Schema["tema"] = self.detalleAsunto["data"].get("Tema", None)
         self.Schema["temaLexpp"] = None
-        self.Schema["temaFondo"] = self.detalleAsunto["data"][0].get("TemaFondo", None)
-        self.Schema["resumenResolucion"] = self.detalleAsunto["data"][0].get("Resolucion", None)
-        self.Schema["organoOrigen"] = self.detalleAsunto["data"][0].get("Organos", None)
-        self.Schema["engroseUrl"] = self.detalleAsunto["data"][0].get("EngrosePublicoURL", None)
+        self.Schema["temaFondo"] = self.detalleAsunto["data"].get("TemaFondo", None)
+        self.Schema["resumenResolucion"] = self.detalleAsunto["data"].get("Resolucion", None)
+        self.Schema["organoOrigen"] = self.detalleAsunto["data"].get("Organos", None)
+        self.Schema["engroseUrl"] = self.detalleAsunto["data"].get("EngrosePublicoURL", None)
         self.Schema["votosEspecialesUrl"] = None
         self.Schema["ministroResolucionId"] = None
 
@@ -366,7 +366,8 @@ class Expediente:
         # Obtenemos un objeto a partir de la respuesta
         response_json_parsed = json.loads(response.json().get("d", {}))
 
-        detalleAsunto = {"data": response_json_parsed, "md5": md5_encoder.hexdigest()}
+        # Using index 0 to extract data from the list
+        detalleAsunto = {"data": response_json_parsed[0], "md5": md5_encoder.hexdigest()}
 
         #Guardamos la respuesta
         self.detalleAsunto = detalleAsunto
