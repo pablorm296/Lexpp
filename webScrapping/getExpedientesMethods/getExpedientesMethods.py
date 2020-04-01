@@ -233,7 +233,7 @@ class Expediente:
                     # Mayúsculas en la primera letra de cada palabra
                     fooValue = fooValue.title()
                     # Eliminar cosas que no son ni espacios ni letras
-                    fooValue = re.sub(r"[\W\d](?<!\s)", "", value)
+                    fooValue = re.sub(r"[\W\d](?<!\s)", "", fooValue)
                     value[i] = fooValue
 
         return True
