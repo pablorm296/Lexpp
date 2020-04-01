@@ -674,7 +674,7 @@ def scanLoop(scrapper: LexppScrapper, config: LexppConfig, pageOption, asuntoID)
                 config.log_INFO("El elemento no es un expediente (no existe el atributo aria-label)!")
                 continue
             # Verificar que la propiedad aria-label contenga algún de exto de nuestro interés
-            ariaLabelMatch = re.match(r"de expediente", ariaLabel, re.IGNORECASE | re.MULTILINE)
+            ariaLabelMatch = re.match(r"de expediente", ariaLabel, re.IGNORECASE)
             if ariaLabelMatch is None:
                 config.log_INFO("El elemento no es un expediente (el contenido de aria-label no es correcto)!")
                 continue
