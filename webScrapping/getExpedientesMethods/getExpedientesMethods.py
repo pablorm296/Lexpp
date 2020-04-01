@@ -129,7 +129,7 @@ class Expediente:
                     self.config.log_WARNING(warning_msg)
                 else:
                     # Definir archivo objetivo
-                    targetPath = "{0}{2}_{3}_voto_{4}.{5}".format(path, tipoAsuntoId, self.LexppId_Expedientes, i, extension)
+                    targetPath = "{0}{1}_voto_{2}.{3}".format(path, self.LexppId_Expedientes, i, extension)
                     #Guardamos el archivo
                     with open(targetPath, "wb") as targetFile:
                         targetFile.write(engroseResponse.content)
